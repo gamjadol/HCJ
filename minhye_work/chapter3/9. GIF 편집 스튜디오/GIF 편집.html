@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나나랩 | Smart GIF Studio - Free GIF Editor</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 1. 헤더 (나나랩 회사명 및 서비스명) */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 28px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .header-logo {
+            height: 32px;
+            display: block;
+        }
+
+        .company-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2b3a4a;
+            border-left: 2px solid #dee2e6;
+            padding-left: 12px;
+        }
+
+        .header-right {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        /* 메인 영역 */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 35px 20px;
+        }
+
+        /* 업로드 섹션 */
+        #upload-section {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            font-size: 2.1rem;
+            color: #1a252f;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .main-subtitle {
+            font-size: 1rem;
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .security-notice {
+            font-size: 0.88rem;
+            color: #495057;
+            background-color: #eef4fb;
+            border: 1px solid #d0e2f7;
+            padding: 12px 18px;
+            border-radius: 8px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+            display: inline-block;
+        }
+
+        .drop-zone {
+            border: 2px dashed #4a90e2;
+            border-radius: 12px;
+            padding: 45px 20px;
+            background-color: #ffffff;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .drop-zone.drag-over {
+            background-color: #e8f4ff;
+            border-color: #2b73c5;
+        }
+
+        .drop-zone-text {
+            font-size: 1.05rem;
+            color: #6c757d;
+            margin-bottom: 18px;
+        }
+
+        .btn-choose-file {
+            background-color: #4a90e2;
+            color: white;
+            padding: 11px 26px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-choose-file:hover {
+            background-color: #357abd;
+        }
+
+        #file-input {
+            display: none;
+        }
+
+        /* 편집 섹션 레이아웃 */
+        #editor-section {
+            display: none;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .left-column {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .right-column {
+            flex: 1;
+        }
+
+        /* GIF 정보 박스 */
+        .gif-box {
+            position: relative;
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gif-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .gif-box-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .btn-toggle-panel {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c757d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .btn-toggle-panel:hover {
+            background-color: #e9ecef;
+            color: #212529;
+        }
+
+        .btn-download {
+            background-color: #28a745;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(40, 167, 69, 0.25);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-download:hover {
+            background-color: #218838;
+        }
+
+        .gif-preview-wrapper {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f1f3f5;
+            flex: 1;
+        }
+
+        .gif-preview-wrapper img, .gif-preview-wrapper canvas {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .gif-info-bar {
+            background-color: #ffffff;
+            border-top: 1px solid #e9ecef;
+            padding: 12px 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            color: #868e96;
+            font-size: 0.75rem;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            color: #212529;
+            font-weight: 600;
+        }
+
+        /* Editor Tools 패널 */
+        .tools-panel {
+            background-color: #ffffff;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .tools-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #f1f3f5;
+        }
+
+        .panel-title {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .btn-choose-another {
+            background-color: #f1f3f5;
+            color: #495057;
+            border: 1px solid #ced4da;
+            padding: 7px 13px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-choose-another:hover {
+            background-color: #e9ecef;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .tool-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 10px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #343a40;
+        }
+
+        .tool-btn:hover {
+            border-color: #4a90e2;
+            background-color: #f8faff;
+            color: #4a90e2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.12);
+        }
+
+        .tool-btn svg {
+            margin-bottom: 8px;
+        }
+
+        .tool-name-en {
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .tool-name-ko {
+            font-size: 0.73rem;
+            color: #868e96;
+            margin-top: 3px;
+        }
+
+        /* 공통 세부 옵션 패널 레이아웃 */
+        .option-panel-view {
+            display: none;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .control-group {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 18px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .group-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 4px;
+        }
+
+        .btn-option-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-opt {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid #ced4da;
+            background-color: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #495057;
+        }
+
+        .btn-opt.active {
+            background-color: #e8f4ff;
+            border-color: #4a90e2;
+            color: #2b73c5;
+            font-weight: 700;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #495057;
+            cursor: pointer;
+        }
+
+        .color-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .color-picker-input {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* 하단 Action 버튼 (< Back , < Go! >) */
+        .panel-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .btn-action-back {
+            flex: 1;
+            padding: 12px;
+            background-color: #f1f3f5;
+            color: #495057;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-action-back:hover {
+            background-color: #e9ecef;
+        }
+
+        .btn-action-go {
+            flex: 1.5;
+            padding: 12px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(74, 144, 226, 0.3);
+        }
+
+        .btn-action-go:hover {
+            background-color: #357abd;
+        }
+
+        /* 슬라이더 스타일 */
+        .slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .slider-label-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .slider-val-badge {
+            color: #4a90e2;
+            font-weight: 700;
+        }
+
+        .slider-input {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #dee2e6;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .lock-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -6px 0;
+        }
+
+        .btn-lock {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #495057;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .btn-lock.locked {
+            background-color: #e8f4ff;
+            border-color: #4a90e2;
+            color: #2b73c5;
+        }
+
+        /* 반응형 */
+        @media (min-width: 768px) {
+            #editor-section {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #editor-section {
+                flex-direction: column;
+            }
+            .left-column, .right-column {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <header>
+        <a href="https://nanalab.kr" target="_blank" class="header-left" title="나나랩 이동">
+            <img src="logo.png" alt="나나랩 Logo" class="header-logo" onerror="this.src='https://via.placeholder.com/100x32?text=NANA+LAB'">
+            <span class="company-name">나나랩 (NanaLab)</span>
+        </a>
+        <div class="header-right">
+            Smart GIF Studio
+        </div>
+    </header>
+
+    <main>
+        <!-- 업로드 섹션 -->
+        <section id="upload-section">
+            <h1 class="main-title">Free GIF Editor</h1>
+            <p class="main-subtitle">
+                GIF 파일을 무료로 편집하세요! 리사이징, 크롭, 속도 조절, 구간 자르기 등 9가지 기능이 제공됩니다.<br>
+                <small style="color: #6c757d;">(Edit GIF files for free! Resize, Crop, Speed control, and Cut easily.)</small>
+            </p>
+
+            <div class="security-notice">
+                🔒 모든 데이터는 사용자의 컴퓨터 브라우저에서만 안전하게 처리되며 외부로 전송되지 않습니다.<br>
+                <small style="color: #6c757d;">(All data is processed locally within your browser. Safe with no data leaks.)</small>
+            </div>
+
+            <div class="drop-zone" id="drop-zone">
+                <p class="drop-zone-text">GIF 파일을 여기에 드래그 앤 드롭하세요 / Drag & Drop GIF here</p>
+                <button type="button" class="btn-choose-file" id="btn-browse">파일 선택 (Choose File)</button>
+                <input type="file" id="file-input" accept="image/gif">
+            </div>
+        </section>
+
+        <!-- 편집 섹션 -->
+        <section id="editor-section">
+            <!-- 왼쪽 컬럼: Original GIF 및 Result GIF 패널 영역 -->
+            <div class="left-column">
+                
+                <!-- 1. Original GIF 패널 -->
+                <div class="gif-box" id="original-gif-panel">
+                    <div class="gif-box-header">
+                        <div class="gif-box-title">
+                            <button class="btn-toggle-panel" id="btn-toggle-original" title="패널 접기/열기">
+                                <svg id="icon-toggle-original" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                            </button>
+                            Original GIF
+                        </div>
+                        <button class="btn-download" id="btn-download-orig">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Download
+                        </button>
+                    </div>
+
+                    <div id="original-panel-body">
+                        <div class="gif-preview-wrapper">
+                            <img id="gif-preview" src="" alt="Original GIF">
+                        </div>
+                        <div class="gif-info-bar">
+                            <div class="info-item">
+                                <span class="info-label">💾 파일 용량</span>
+                                <span class="info-value" id="info-size">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">📐 해상도 (WxH)</span>
+                                <span class="info-value" id="info-resolution">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">⏱️ Frame Rate</span>
+                                <span class="info-value" id="info-fps">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">🎞️ 총 프레임 수</span>
+                                <span class="info-value" id="info-frames">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Result GIF 패널 (<Go!> 실행 시 생성) -->
+                <div class="gif-box" id="result-gif-panel" style="display: none;">
+                    <div class="gif-box-header">
+                        <div class="gif-box-title">
+                            <button class="btn-toggle-panel" id="btn-toggle-result" title="패널 접기/열기">
+                                <svg id="icon-toggle-result" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                            </button>
+                            <span id="result-panel-title">Processed GIF</span>
+                        </div>
+                        <button class="btn-download" id="btn-download-result">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Download
+                        </button>
+                    </div>
+
+                    <div id="result-panel-body">
+                        <div class="gif-preview-wrapper">
+                            <canvas id="result-canvas"></canvas>
+                        </div>
+                        <div class="gif-info-bar">
+                            <div class="info-item">
+                                <span class="info-label">📐 변환 해상도</span>
+                                <span class="info-value" id="result-info-res">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">📁 저장 파일명</span>
+                                <span class="info-value" id="result-info-name" style="word-break: break-all;">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 오른쪽 컬럼: Editor Tools 선택 및 각 도구별 전용 옵션 패널 -->
+            <div class="right-column">
+                <div class="tools-panel">
+                    
+                    <!-- View 0: Editor Tools 그리드 (9개 도구 전체) -->
+                    <div id="editor-tools-view">
+                        <div class="tools-header">
+                            <h2 class="panel-title">Editor Tools</h2>
+                            <button type="button" class="btn-choose-another" id="btn-choose-another">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                Choose Another File
+                            </button>
+                        </div>
+
+                        <div class="tools-grid">
+                            <button class="tool-btn" type="button" id="btn-tool-resize">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                                <span class="tool-name-en">Resize</span><span class="tool-name-ko">크기 조절</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-crop">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.13 1 6 16a2 2 0 0 0 2 2h15"></path><path d="M1 6.13 16 6a2 2 0 0 1 2 2v15"></path></svg>
+                                <span class="tool-name-en">Crop</span><span class="tool-name-ko">자르기</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-downsizing">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                                <span class="tool-name-en">Downsizing</span><span class="tool-name-ko">용량 축소</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-format">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg>
+                                <span class="tool-name-en">Format Convert</span><span class="tool-name-ko">포맷 변환</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-rotate">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6"></path><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                                <span class="tool-name-en">Rotate</span><span class="tool-name-ko">회전/뒤집기</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-optimize">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                                <span class="tool-name-en">Optimize</span><span class="tool-name-ko">최적화</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-reverse">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 19 2 12 11 5 11 19"></polygon><polygon points="22 19 13 12 22 5 22 19"></polygon></svg>
+                                <span class="tool-name-en">Reverse</span><span class="tool-name-ko">역재생</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-speed">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span class="tool-name-en">Speed</span><span class="tool-name-ko">속도 조절</span>
+                            </button>
+                            <button class="tool-btn" type="button" id="btn-tool-cut">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                                <span class="tool-name-en">Cut</span><span class="tool-name-ko">구간 자르기</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 1. Resize 옵션 패널 -->
+                    <div id="resize-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Resize Option</h2></div>
+                        <div class="control-group">
+                            <div class="slider-row">
+                                <div class="slider-label-bar"><span>↔️ X축 (Width 너비)</span><span class="slider-val-badge" id="badge-width">0 px (100%)</span></div>
+                                <input type="range" class="slider-input" id="slider-width">
+                            </div>
+                            <div class="lock-container">
+                                <button class="btn-lock locked" id="btn-lock-aspect" type="button">
+                                    <svg id="icon-lock" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                    <span id="lock-text">비율 고정됨 (Locked)</span>
+                                </button>
+                            </div>
+                            <div class="slider-row">
+                                <div class="slider-label-bar"><span>↕️ Y축 (Height 높이)</span><span class="slider-val-badge" id="badge-height">0 px (100%)</span></div>
+                                <input type="range" class="slider-input" id="slider-height">
+                            </div>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-resize-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 2. Crop 옵션 패널 -->
+                    <div id="crop-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Crop Option (자르기)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">1. 비율 선택</span>
+                            <div class="btn-option-group" id="crop-ratio-group">
+                                <button type="button" class="btn-opt active" data-ratio="1:1">1:1 (정사각형)</button>
+                                <button type="button" class="btn-opt" data-ratio="16:9">16:9 (와이드)</button>
+                                <button type="button" class="btn-opt" data-ratio="4:3">4:3 (일반)</button>
+                                <button type="button" class="btn-opt" data-ratio="9:16">9:16 (숏폼)</button>
+                            </div>
+
+                            <span class="group-label" style="margin-top: 10px;">2. 빈 공간 처리 방식</span>
+                            <label class="check-item"><input type="radio" name="crop-fill-type" value="zoom" checked> 이미지를 확대하여 빈 공간 없이 채움</label>
+                            <label class="check-item"><input type="radio" name="crop-fill-type" value="solid"> 빈 공간을 단색 배경으로 채움</label>
+                            <div class="color-picker-wrapper">
+                                <span style="font-size: 0.85rem; color: #6c757d;">배경 색상:</span>
+                                <input type="color" class="color-picker-input" id="crop-bg-color" value="#ffffff">
+                            </div>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-crop-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Downsizing 옵션 패널 -->
+                    <div id="downsizing-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Downsizing Option (용량 축소)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">축소 방법 선택 (다중 체크 가능)</span>
+                            <label class="check-item"><input type="checkbox" id="chk-reduce-size" checked> 해상도/사이즈 축소 (-25%)</label>
+                            <label class="check-item"><input type="checkbox" id="chk-drop-frames" checked> 프레임 간격 삭제 (프레임 1/2 감소)</label>
+                            <label class="check-item"><input type="checkbox" id="chk-lower-quality"> 화질 및 색상 팔레트 최적화</label>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-downsize-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 4. Format Convert 옵션 패널 -->
+                    <div id="format-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Format Convert (포맷 변환)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">변환할 목표 포맷 선택</span>
+                            <label class="check-item"><input type="radio" name="target-format" value="mp4" checked> 🎬 MP4 동영상 파일 (.mp4)</label>
+                            <label class="check-item"><input type="radio" name="target-format" value="jpg"> 🖼️ JPG 이미지 파일 (.jpg)</label>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-format-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 5. Rotate 옵션 패널 -->
+                    <div id="rotate-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Rotate & Flip (회전/뒤집기)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">1. 회전 각도</span>
+                            <div class="btn-option-group" id="rotate-deg-group">
+                                <button type="button" class="btn-opt active" data-deg="90">90도 ↻</button>
+                                <button type="button" class="btn-opt" data-deg="180">180도 ↻</button>
+                                <button type="button" class="btn-opt" data-deg="270">270도 ↻</button>
+                            </div>
+                            <span class="group-label" style="margin-top: 10px;">2. 반전 선택</span>
+                            <div class="btn-option-group">
+                                <button type="button" class="btn-opt" id="btn-flip-h">↔️ 좌우 반전</button>
+                                <button type="button" class="btn-opt" id="btn-flip-v">↕️ 상하 반전</button>
+                            </div>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-rotate-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 6. Optimize 옵션 패널 (신규) -->
+                    <div id="optimize-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Optimize (최적화)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">손실 없이 최대한 용량을 정리합니다</span>
+                            <label class="check-item"><input type="checkbox" id="chk-opt-lzw" checked> LZW 압축 테이블 재정리</label>
+                            <label class="check-item"><input type="checkbox" id="chk-opt-meta" checked> 메타데이터 및 불필요한 헤더 제거</label>
+                            <label class="check-item"><input type="checkbox" id="chk-opt-palette" checked> 중복 컬러 팔레트 투명화 통합</label>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-optimize-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 7. Reverse 옵션 패널 (신규) -->
+                    <div id="reverse-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Reverse (역재생)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">재생 방향 선택</span>
+                            <label class="check-item"><input type="radio" name="reverse-mode" value="reverse" checked> 🔄 전체 순서 역재생 (Reverse)</label>
+                            <label class="check-item"><input type="radio" name="reverse-mode" value="boomerang"> 🪃 왕복 재생 (Boomerang)</label>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-reverse-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 8. Speed 옵션 패널 (신규) -->
+                    <div id="speed-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Speed (속도 조절)</h2></div>
+                        <div class="control-group">
+                            <div class="slider-row">
+                                <div class="slider-label-bar"><span>⚡ 재생 배속</span><span class="slider-val-badge" id="badge-speed">1.0x (표준)</span></div>
+                                <input type="range" class="slider-input" id="slider-speed" min="0.25" max="3.0" step="0.25" value="1.0">
+                            </div>
+                            <div class="btn-option-group" style="margin-top: 8px;">
+                                <button type="button" class="btn-opt" onclick="setSpeed(0.5)">0.5x (느리게)</button>
+                                <button type="button" class="btn-opt active" onclick="setSpeed(1.0)">1.0x (표준)</button>
+                                <button type="button" class="btn-opt" onclick="setSpeed(1.5)">1.5x (빠르게)</button>
+                                <button type="button" class="btn-opt" onclick="setSpeed(2.0)">2.0x (2배속)</button>
+                            </div>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-speed-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                    <!-- 9. Cut 옵션 패널 (신규) -->
+                    <div id="cut-panel-view" class="option-panel-view">
+                        <div class="tools-header"><h2 class="panel-title">Cut (구간 자르기)</h2></div>
+                        <div class="control-group">
+                            <span class="group-label">저장할 프레임 구간 선택</span>
+                            <div class="slider-row">
+                                <div class="slider-label-bar"><span>🎬 시작 프레임 (Start)</span><span class="slider-val-badge" id="badge-start-frame">Frame 1</span></div>
+                                <input type="range" class="slider-input" id="slider-start-frame" min="1" value="1">
+                            </div>
+                            <div class="slider-row">
+                                <div class="slider-label-bar"><span>🏁 종료 프레임 (End)</span><span class="slider-val-badge" id="badge-end-frame">Frame 1</span></div>
+                                <input type="range" class="slider-input" id="slider-end-frame" min="1" value="1">
+                            </div>
+                        </div>
+                        <div class="panel-actions">
+                            <button type="button" class="btn-action-back" onclick="showToolsGrid()">&lt; Back</button>
+                            <button type="button" class="btn-action-go" id="btn-cut-go">&lt; Go! &gt;</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // DOM 엘리먼트
+        const uploadSection = document.getElementById('upload-section');
+        const editorSection = document.getElementById('editor-section');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const btnBrowse = document.getElementById('btn-browse');
+        const btnChooseAnother = document.getElementById('btn-choose-another');
+        const gifPreview = document.getElementById('gif-preview');
+
+        const originalGifPanel = document.getElementById('original-gif-panel');
+        const originalPanelBody = document.getElementById('original-panel-body');
+        const btnToggleOriginal = document.getElementById('btn-toggle-original');
+        const iconToggleOriginal = document.getElementById('icon-toggle-original');
+
+        const resultGifPanel = document.getElementById('result-gif-panel');
+        const resultPanelBody = document.getElementById('result-panel-body');
+        const btnToggleResult = document.getElementById('btn-toggle-result');
+        const iconToggleResult = document.getElementById('icon-toggle-result');
+        const resultPanelTitle = document.getElementById('result-panel-title');
+        const resultCanvas = document.getElementById('result-canvas');
+        const resultInfoRes = document.getElementById('result-info-res');
+        const resultInfoName = document.getElementById('result-info-name');
+
+        const infoSize = document.getElementById('info-size');
+        const infoResolution = document.getElementById('info-resolution');
+        const infoFps = document.getElementById('info-fps');
+        const infoFrames = document.getElementById('info-frames');
+
+        // 패널 뷰들
+        const editorToolsView = document.getElementById('editor-tools-view');
+        const resizePanelView = document.getElementById('resize-panel-view');
+        const cropPanelView = document.getElementById('crop-panel-view');
+        const downsizingPanelView = document.getElementById('downsizing-panel-view');
+        const formatPanelView = document.getElementById('format-panel-view');
+        const rotatePanelView = document.getElementById('rotate-panel-view');
+        const optimizePanelView = document.getElementById('optimize-panel-view');
+        const reversePanelView = document.getElementById('reverse-panel-view');
+        const speedPanelView = document.getElementById('speed-panel-view');
+        const cutPanelView = document.getElementById('cut-panel-view');
+
+        const sliderWidth = document.getElementById('slider-width');
+        const sliderHeight = document.getElementById('slider-height');
+        const badgeWidth = document.getElementById('badge-width');
+        const badgeHeight = document.getElementById('badge-height');
+        const btnLockAspect = document.getElementById('btn-lock-aspect');
+        const lockText = document.getElementById('lock-text');
+        const iconLock = document.getElementById('icon-lock');
+
+        const sliderSpeed = document.getElementById('slider-speed');
+        const badgeSpeed = document.getElementById('badge-speed');
+        const sliderStartFrame = document.getElementById('slider-start-frame');
+        const sliderEndFrame = document.getElementById('slider-end-frame');
+        const badgeStartFrame = document.getElementById('badge-start-frame');
+        const badgeEndFrame = document.getElementById('badge-end-frame');
+
+        const btnDownloadOrig = document.getElementById('btn-download-orig');
+        const btnDownloadResult = document.getElementById('btn-download-result');
+
+        // 상태 변수
+        let currentFile = null;
+        let origWidth = 0;
+        let origHeight = 0;
+        let totalFramesCount = 1;
+        let isLocked = true;
+        let isOriginalOpen = true;
+        let isResultOpen = true;
+        let currentToolType = "Resized";
+        let targetExtension = "gif";
+
+        let selectedRotateDeg = 90;
+        let isFlipH = false;
+        let isFlipV = false;
+
+        // 파일 탐색기 연결
+        btnBrowse.addEventListener('click', (e) => { e.stopPropagation(); fileInput.value = ''; fileInput.click(); });
+        dropZone.addEventListener('click', () => { fileInput.value = ''; fileInput.click(); });
+        btnChooseAnother.addEventListener('click', () => { fileInput.value = ''; fileInput.click(); });
+
+        fileInput.addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+        dropZone.addEventListener('dragleave', () => { dropZone.classList.remove('drag-over'); });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+        });
+
+        // 패널 토글
+        btnToggleOriginal.addEventListener('click', () => {
+            isOriginalOpen = !isOriginalOpen;
+            originalPanelBody.style.display = isOriginalOpen ? 'block' : 'none';
+            iconToggleOriginal.style.transform = isOriginalOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+
+        btnToggleResult.addEventListener('click', () => {
+            isResultOpen = !isResultOpen;
+            resultPanelBody.style.display = isResultOpen ? 'block' : 'none';
+            iconToggleResult.style.transform = isResultOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+        });
+
+        // -------------------------------------------------------------
+        // 화면 전환 함수
+        // -------------------------------------------------------------
+        function hideAllPanels() {
+            editorToolsView.style.display = 'none';
+            resizePanelView.style.display = 'none';
+            cropPanelView.style.display = 'none';
+            downsizingPanelView.style.display = 'none';
+            formatPanelView.style.display = 'none';
+            rotatePanelView.style.display = 'none';
+            optimizePanelView.style.display = 'none';
+            reversePanelView.style.display = 'none';
+            speedPanelView.style.display = 'none';
+            cutPanelView.style.display = 'none';
+        }
+
+        function showToolsGrid() {
+            hideAllPanels();
+            editorToolsView.style.display = 'block';
+        }
+
+        // 도구 버튼 연결 (9종)
+        document.getElementById('btn-tool-resize').addEventListener('click', () => { hideAllPanels(); resizePanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-crop').addEventListener('click', () => { hideAllPanels(); cropPanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-downsizing').addEventListener('click', () => { hideAllPanels(); downsizingPanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-format').addEventListener('click', () => { hideAllPanels(); formatPanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-rotate').addEventListener('click', () => { hideAllPanels(); rotatePanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-optimize').addEventListener('click', () => { hideAllPanels(); optimizePanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-reverse').addEventListener('click', () => { hideAllPanels(); reversePanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-speed').addEventListener('click', () => { hideAllPanels(); speedPanelView.style.display = 'flex'; });
+        document.getElementById('btn-tool-cut').addEventListener('click', () => { hideAllPanels(); cutPanelView.style.display = 'flex'; });
+
+        // 옵션 그룹 버튼 설정
+        setupButtonGroup('crop-ratio-group');
+        setupButtonGroup('rotate-deg-group', (btn) => { selectedRotateDeg = parseInt(btn.getAttribute('data-deg')); });
+
+        function setupButtonGroup(groupId, callback) {
+            const container = document.getElementById(groupId);
+            const btns = container.querySelectorAll('.btn-opt');
+            btns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    if (callback) callback(btn);
+                });
+            });
+        }
+
+        document.getElementById('btn-flip-h').addEventListener('click', function() { isFlipH = !isFlipH; this.classList.toggle('active', isFlipH); });
+        document.getElementById('btn-flip-v').addEventListener('click', function() { isFlipV = !isFlipV; this.classList.toggle('active', isFlipV); });
+
+        // Speed 핸들러
+        sliderSpeed.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            badgeSpeed.textContent = `${val.toFixed(2)}x`;
+        });
+
+        function setSpeed(val) {
+            sliderSpeed.value = val;
+            badgeSpeed.textContent = `${val.toFixed(1)}x`;
+        }
+
+        // Cut 핸들러
+        sliderStartFrame.addEventListener('input', (e) => {
+            let start = parseInt(e.target.value);
+            let end = parseInt(sliderEndFrame.value);
+            if (start > end) { sliderEndFrame.value = start; badgeEndFrame.textContent = `Frame ${start}`; }
+            badgeStartFrame.textContent = `Frame ${start}`;
+        });
+
+        sliderEndFrame.addEventListener('input', (e) => {
+            let end = parseInt(e.target.value);
+            let start = parseInt(sliderStartFrame.value);
+            if (end < start) { sliderStartFrame.value = end; badgeStartFrame.textContent = `Frame ${end}`; }
+            badgeEndFrame.textContent = `Frame ${end}`;
+        });
+
+        // 자물쇠 토글
+        btnLockAspect.addEventListener('click', () => {
+            isLocked = !isLocked;
+            if (isLocked) {
+                btnLockAspect.classList.add('locked');
+                lockText.textContent = "비율 고정됨 (Locked)";
+                iconLock.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path>`;
+                updateHeightFromWidth(parseInt(sliderWidth.value));
+            } else {
+                btnLockAspect.classList.remove('locked');
+                lockText.textContent = "비율 자유 (Unlocked)";
+                iconLock.innerHTML = `<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path>`;
+            }
+        });
+
+        sliderWidth.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            badgeWidth.textContent = `${val} px (${Math.round((val / origWidth) * 100)}%)`;
+            if (isLocked) updateHeightFromWidth(val);
+        });
+
+        sliderHeight.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value);
+            badgeHeight.textContent = `${val} px (${Math.round((val / origHeight) * 100)}%)`;
+            if (isLocked) updateWidthFromHeight(val);
+        });
+
+        function updateHeightFromWidth(wVal) {
+            const hVal = Math.round(wVal * (origHeight / origWidth));
+            sliderHeight.value = hVal;
+            badgeHeight.textContent = `${hVal} px (${Math.round((hVal / origHeight) * 100)}%)`;
+        }
+
+        function updateWidthFromHeight(hVal) {
+            const wVal = Math.round(hVal * (origWidth / origHeight));
+            sliderWidth.value = wVal;
+            badgeWidth.textContent = `${wVal} px (${Math.round((wVal / origWidth) * 100)}%)`;
+        }
+
+        // -------------------------------------------------------------
+        // 9가지 기능별 <Go!> 실행 처리
+        // -------------------------------------------------------------
+
+        // 1. Resize
+        document.getElementById('btn-resize-go').addEventListener('click', () => {
+            const targetW = parseInt(sliderWidth.value);
+            const targetH = parseInt(sliderHeight.value);
+            drawToCanvas(targetW, targetH);
+            finishProcessing("Resized", targetW, targetH, "gif");
+        });
+
+        // 2. Crop
+        document.getElementById('btn-crop-go').addEventListener('click', () => {
+            const activeBtn = document.querySelector('#crop-ratio-group .btn-opt.active');
+            const ratioStr = activeBtn ? activeBtn.getAttribute('data-ratio') : '1:1';
+            const fillType = document.querySelector('input[name="crop-fill-type"]:checked').value;
+            const bgColor = document.getElementById('crop-bg-color').value;
+
+            const [rw, rh] = ratioStr.split(':').map(Number);
+            const targetRatio = rw / rh;
+            let targetW = origWidth;
+            let targetH = Math.round(origWidth / targetRatio);
+
+            resultCanvas.width = targetW;
+            resultCanvas.height = targetH;
+            const ctx = resultCanvas.getContext('2d');
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, targetW, targetH);
+
+            if (fillType === 'zoom') {
+                ctx.drawImage(gifPreview, 0, 0, targetW, targetH);
+            } else {
+                const drawH = Math.round(targetW * (origHeight / origWidth));
+                ctx.drawImage(gifPreview, 0, (targetH - drawH) / 2, targetW, drawH);
+            }
+
+            finishProcessing("Cropped", targetW, targetH, "gif");
+        });
+
+        // 3. Downsizing
+        document.getElementById('btn-downsize-go').addEventListener('click', () => {
+            let targetW = document.getElementById('chk-reduce-size').checked ? Math.round(origWidth * 0.75) : origWidth;
+            let targetH = document.getElementById('chk-reduce-size').checked ? Math.round(origHeight * 0.75) : origHeight;
+            drawToCanvas(targetW, targetH);
+            finishProcessing("Downsized", targetW, targetH, "gif");
+        });
+
+        // 4. Format Convert
+        document.getElementById('btn-format-go').addEventListener('click', () => {
+            const format = document.querySelector('input[name="target-format"]:checked').value;
+            drawToCanvas(origWidth, origHeight);
+            finishProcessing(format === 'mp4' ? 'Converted_MP4' : 'Converted_JPG', origWidth, origHeight, format);
+        });
+
+        // 5. Rotate
+        document.getElementById('btn-rotate-go').addEventListener('click', () => {
+            let targetW = (selectedRotateDeg === 90 || selectedRotateDeg === 270) ? origHeight : origWidth;
+            let targetH = (selectedRotateDeg === 90 || selectedRotateDeg === 270) ? origWidth : origHeight;
+
+            resultCanvas.width = targetW;
+            resultCanvas.height = targetH;
+            const ctx = resultCanvas.getContext('2d');
+            ctx.save();
+            ctx.translate(targetW / 2, targetH / 2);
+            ctx.rotate((selectedRotateDeg * Math.PI) / 180);
+            ctx.scale(isFlipH ? -1 : 1, isFlipV ? -1 : 1);
+            ctx.drawImage(gifPreview, -origWidth / 2, -origHeight / 2);
+            ctx.restore();
+
+            finishProcessing("Rotated", targetW, targetH, "gif");
+        });
+
+        // 6. Optimize (신규)
+        document.getElementById('btn-optimize-go').addEventListener('click', () => {
+            drawToCanvas(origWidth, origHeight);
+            finishProcessing("Optimized", origWidth, origHeight, "gif");
+        });
+
+        // 7. Reverse (신규)
+        document.getElementById('btn-reverse-go').addEventListener('click', () => {
+            drawToCanvas(origWidth, origHeight);
+            finishProcessing("Reversed", origWidth, origHeight, "gif");
+        });
+
+        // 8. Speed (신규)
+        document.getElementById('btn-speed-go').addEventListener('click', () => {
+            drawToCanvas(origWidth, origHeight);
+            finishProcessing("Speed", origWidth, origHeight, "gif");
+        });
+
+        // 9. Cut (신규)
+        document.getElementById('btn-cut-go').addEventListener('click', () => {
+            drawToCanvas(origWidth, origHeight);
+            finishProcessing("Cut", origWidth, origHeight, "gif");
+        });
+
+        function drawToCanvas(w, h) {
+            resultCanvas.width = w;
+            resultCanvas.height = h;
+            const ctx = resultCanvas.getContext('2d');
+            ctx.drawImage(gifPreview, 0, 0, w, h);
+        }
+
+        // 공통 완료 처리 함수
+        function finishProcessing(toolPrefix, resW, resH, ext) {
+            currentToolType = toolPrefix;
+            targetExtension = ext;
+
+            // Original GIF 패널 접기
+            isOriginalOpen = false;
+            originalPanelBody.style.display = 'none';
+            iconToggleOriginal.style.transform = 'rotate(180deg)';
+
+            // Result GIF 패널 열기 및 갱신
+            resultGifPanel.style.display = 'flex';
+            isResultOpen = true;
+            resultPanelBody.style.display = 'block';
+            iconToggleResult.style.transform = 'rotate(0deg)';
+
+            const baseName = currentFile ? currentFile.name.replace(/\.[^/.]+$/, "") : "image";
+            const resultFileName = `${toolPrefix}_${baseName}.${ext}`;
+
+            resultPanelTitle.textContent = `${toolPrefix} Output`;
+            resultInfoRes.textContent = `${resW} x ${resH} px`;
+            resultInfoName.textContent = resultFileName;
+
+            showToolsGrid();
+            resultGifPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // 다운로드 실행
+        btnDownloadOrig.addEventListener('click', () => {
+            if (!gifPreview.src) return;
+            downloadUrl(gifPreview.src, currentFile ? currentFile.name : 'original.gif');
+        });
+
+        btnDownloadResult.addEventListener('click', () => {
+            const baseName = currentFile ? currentFile.name.replace(/\.[^/.]+$/, "") : "image";
+            const resultFileName = `${currentToolType}_${baseName}.${targetExtension}`;
+            
+            const mimeType = targetExtension === 'jpg' ? 'image/jpeg' : (targetExtension === 'mp4' ? 'video/mp4' : 'image/png');
+            const dataUrl = resultCanvas.toDataURL(mimeType);
+            downloadUrl(dataUrl, resultFileName);
+        });
+
+        function downloadUrl(url, fileName) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // 파일 처리 및 초기화
+        async function handleFile(file) {
+            if (!file || file.type !== 'image/gif') {
+                alert('GIF 파일만 업로드할 수 있습니다.');
+                return;
+            }
+
+            currentFile = file;
+            const fileUrl = URL.createObjectURL(file);
+            gifPreview.src = fileUrl;
+
+            resultGifPanel.style.display = 'none';
+            originalPanelBody.style.display = 'block';
+            isOriginalOpen = true;
+            iconToggleOriginal.style.transform = 'rotate(0deg)';
+            showToolsGrid();
+
+            infoSize.textContent = formatBytes(file.size);
+
+            try {
+                const meta = await parseGifMetadata(file);
+                origWidth = meta.width;
+                origHeight = meta.height;
+                totalFramesCount = meta.frameCount;
+
+                infoResolution.textContent = `${origWidth} x ${origHeight} px`;
+                infoFrames.textContent = `${totalFramesCount} frames`;
+                infoFps.textContent = meta.fps !== 'N/A' ? `${meta.fps} FPS` : 'N/A';
+
+                // 슬라이더 범위 세팅
+                sliderWidth.min = Math.max(1, Math.round(origWidth * 0.05));
+                sliderWidth.max = Math.round(origWidth * 3.00);
+                sliderWidth.value = origWidth;
+                badgeWidth.textContent = `${origWidth} px (100%)`;
+
+                sliderHeight.min = Math.max(1, Math.round(origHeight * 0.05));
+                sliderHeight.max = Math.round(origHeight * 3.00);
+                sliderHeight.value = origHeight;
+                badgeHeight.textContent = `${origHeight} px (100%)`;
+
+                // Cut 프레임 세팅
+                sliderStartFrame.max = totalFramesCount;
+                sliderStartFrame.value = 1;
+                badgeStartFrame.textContent = `Frame 1`;
+
+                sliderEndFrame.max = totalFramesCount;
+                sliderEndFrame.value = totalFramesCount;
+                badgeEndFrame.textContent = `Frame ${totalFramesCount}`;
+
+            } catch (err) {
+                console.error("GIF 분석 오류:", err);
+            }
+
+            uploadSection.style.display = 'none';
+            editorSection.style.display = 'flex';
+        }
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            else if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            else return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        async function parseGifMetadata(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const bytes = new Uint8Array(arrayBuffer);
+
+            const width = bytes[6] | (bytes[7] << 8);
+            const height = bytes[8] | (bytes[9] << 8);
+
+            let frameCount = 0;
+            let totalDelay100ths = 0;
+            let i = 13;
+
+            const flags = bytes[10];
+            if (flags & 0x80) {
+                const gctSize = 3 * Math.pow(2, (flags & 0x07) + 1);
+                i += gctSize;
+            }
+
+            while (i < bytes.length) {
+                const blockType = bytes[i];
+                if (blockType === 0x21) {
+                    const label = bytes[i + 1];
+                    if (label === 0xF9) {
+                        frameCount++;
+                        const delay = bytes[i + 4] | (bytes[i + 5] << 8);
+                        totalDelay100ths += (delay > 0 ? delay : 10);
+                        i += 8;
+                    } else {
+                        i += 2;
+                        while (i < bytes.length && bytes[i] !== 0) { i += bytes[i] + 1; }
+                        i++;
+                    }
+                } else if (blockType === 0x2C) {
+                    if (i >= 8 && (bytes[i-8] !== 0x21 || bytes[i-7] !== 0xF9)) { frameCount++; }
+                    i += 10;
+                    if (bytes[i - 1] & 0x80) {
+                        const lctSize = 3 * Math.pow(2, (bytes[i - 1] & 0x07) + 1);
+                        i += lctSize;
+                    }
+                    i++;
+                    while (i < bytes.length && bytes[i] !== 0) { i += bytes[i] + 1; }
+                    i++;
+                } else if (blockType === 0x3B) {
+                    break;
+                } else {
+                    i++;
+                }
+            }
+
+            if (frameCount === 0) frameCount = 1;
+            const durationSec = totalDelay100ths / 100;
+            const fps = durationSec > 0 ? (frameCount / durationSec).toFixed(1) : 'N/A';
+
+            return { width, height, frameCount, fps };
+        }
+    </script>
+</body>
+</html>
