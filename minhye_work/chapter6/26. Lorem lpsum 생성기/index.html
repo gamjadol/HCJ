@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum 생성기 - 나나컴퍼니</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 650px;
+            position: relative; /* 상단 브랜드 배치를 위한 설정 */
+        }
+
+        /* 왼쪽 상단 브랜드 표시 추가 */
+        .brand-logo {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #4c6ef5;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #111;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .control-panel {
+            background-color: #f1f3f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .char-count {
+            color: #4c6ef5;
+            font-size: 1.1rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #dee2e6;
+            outline: none;
+            accent-color: #4c6ef5;
+            cursor: pointer;
+        }
+
+        .range-limits {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #868e96;
+            margin-top: 6px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 16px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #495057;
+            resize: vertical;
+            outline: none;
+            background-color: #fafafa;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #4c6ef5;
+            background-color: #ffffff;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+
+        button {
+            background-color: #4c6ef5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #3b5bdb;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 왼쪽 상단 나나컴퍼니 로고 -->
+    <div class="brand-logo">나나컴퍼니</div>
+
+    <h1>Lorem Ipsum 생성기</h1>
+
+    <div class="control-panel">
+        <div class="slider-header">
+            <span>글자 수 조절</span>
+            <span class="char-count" id="countDisplay">150자</span>
+        </div>
+        <input type="range" id="lengthSlider" min="10" max="5000" value="150">
+        <div class="range-limits">
+            <span>최소 10자</span>
+            <span>최대 5000자</span>
+        </div>
+    </div>
+
+    <textarea id="outputText" readonly placeholder="생성된 텍스트가 여기에 표시됩니다."></textarea>
+
+    <div class="btn-container">
+        <button id="copyBtn">텍스트 복사하기</button>
+    </div>
+</div>
+
+<script>
+    // 원본 Lorem Ipsum 텍스트
+    const baseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ";
+
+    // 5000자 이상을 커버할 수 있도록 원본 텍스트 반복 생성
+    const repeatedText = baseText.repeat(Math.ceil(5000 / baseText.length));
+
+    const slider = document.getElementById('lengthSlider');
+    const countDisplay = document.getElementById('countDisplay');
+    const outputText = document.getElementById('outputText');
+    const copyBtn = document.getElementById('copyBtn');
+
+    // 슬라이더 변경 시 텍스트 업데이트 함수
+    function updateLoremText() {
+        const length = parseInt(slider.value, 10);
+        countDisplay.textContent = `${length.toLocaleString()}자`;
+        outputText.value = repeatedText.substring(0, length);
+    }
+
+    // 슬라이더 이벤트 리스너
+    slider.addEventListener('input', updateLoremText);
+
+    // 복사 버튼 기능
+    copyBtn.addEventListener('click', () => {
+        outputText.select();
+        navigator.clipboard.writeText(outputText.value).then(() => {
+            const originalBtnText = copyBtn.textContent;
+            copyBtn.textContent = '복사 완료! ✨';
+            copyBtn.style.backgroundColor = '#40c057';
+
+            setTimeout(() => {
+                copyBtn.textContent = originalBtnText;
+                copyBtn.style.backgroundColor = '#4c6ef5';
+            }, 1500);
+        });
+    });
+
+    // 초기 실행 (150자)
+    updateLoremText();
+</script>
+
+</body>
+</html>

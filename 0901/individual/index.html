@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스터디 시간 조율</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f8faf9;color:#18211b;font-family:Arial,"Noto Sans KR",sans-serif}
+header{height:58px;background:#fff;border-bottom:1px solid #e1e7e2;display:flex;align-items:center;justify-content:center;position:sticky;top:0;z-index:5}
+main{max-width:720px;margin:auto;padding:28px 18px 50px}.badge{display:inline-block;padding:7px 12px;border-radius:99px;background:#effaf3;color:#08733e;font-size:12px;font-weight:800}
+.card{background:#fff;border:1px solid #e1e7e2;border-radius:18px;padding:24px;margin-top:18px;box-shadow:0 8px 24px rgba(0,0,0,.04)}
+label{display:block;font-size:13px;font-weight:800;margin-bottom:8px}input,textarea{width:100%;padding:13px;border:1px solid #dce3de;border-radius:10px;font:inherit;outline:none}input:focus,textarea:focus{border-color:#2fbf71}
+.field{margin-bottom:20px}.hint{min-height:18px;font-size:12px;margin-top:6px}.ok{color:#188653}.bad{color:#c02626}
+.grid-wrap{overflow:auto;border:1px solid #e1e7e2;border-radius:12px}.grid{border-collapse:collapse;min-width:620px;width:100%}.grid th,.grid td{border:1px solid #e5eae6;padding:6px;text-align:center;font-size:11px}.grid th{height:40px;background:#f4f7f5}.cell{height:48px;width:100%;border:1px solid #dce3de;background:#fff;border-radius:6px;cursor:pointer}.cell.selected{background:#2fbf71;color:#fff;border-color:#2fbf71}.submit{width:100%;border:0;border-radius:12px;background:#2fbf71;color:#fff;padding:15px;font-weight:800;font-size:16px;cursor:pointer}.submit:disabled{opacity:.6}
+.alert{display:none;padding:12px;border-radius:10px;background:#fff0ee;color:#b42318;margin-bottom:15px;font-size:13px}.success{text-align:center;padding:50px 20px}.success-icon{font-size:54px;color:#188653}
+.share{margin-top:18px;padding:15px;background:#f5f8f6;border:1px dashed #b9c8bd;border-radius:12px;font-size:12px;color:#56645b}
+</style>
+</head>
+<body>
+<header><strong>스터디 시간 조율</strong></header>
+<main id="formView">
+  <span class="badge"><?= currentRound ?></span>
+  <p>본인의 정보를 입력하고 가능한 시간을 선택해 주세요.<br>같은 회차에는 학번당 1회만 제출할 수 있습니다.</p>
+  <div id="alert" class="alert"></div>
+
+  <div class="card">
+    <div class="field">
+      <label for="studentId">학번 *</label>
+      <input id="studentId" inputmode="numeric" placeholder="예) 20251234">
+      <div id="idHint" class="hint"></div>
+    </div>
+
+    <div class="field">
+      <label for="name">이름 *</label>
+      <input id="name" placeholder="홍길동">
+    </div>
+
+    <div class="field">
+      <label>가능한 시간대 *</label>
+      <div class="grid-wrap"><table class="grid" id="timeGrid"></table></div>
+      <small>원하는 시간대를 여러 개 선택할 수 있습니다.</small>
+    </div>
+
+    <div class="field">
+      <label for="clubActivity">동아리 활동 내용 *</label>
+      <textarea id="clubActivity" rows="3" placeholder="최근 동아리 활동 내용을 적어 주세요."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="note">비고 (선택)</label>
+      <textarea id="note" rows="2" placeholder="예) 화요일은 저녁 8시 이후만 가능해요"></textarea>
+    </div>
+
+    <button class="submit" id="submitBtn" onclick="handleSubmit()">확인</button>
+  </div>
+
+  <div class="share">회차를 변경해야 한다면 Google Apps Script의 <b>CURRENT_ROUND</b> 값을 변경한 뒤 새 버전으로 배포하세요.</div>
+</main>
+
+<main id="doneView" style="display:none">
+  <div class="card success">
+    <div class="success-icon">✓</div>
+    <h1 id="doneMsg">참여해 주셔서 감사합니다!</h1>
+    <p>제출이 정상적으로 완료되었습니다. 창을 닫으셔도 됩니다.</p>
+  </div>
+</main>
+
+<script>
+const DAYS=['월','화','수','목','금','토','일'];
+const TIMES=['09:00~12:00','12:00~15:00','15:00~18:00','18:00~21:00','21:00~24:00'];
+
+function buildGrid(){
+ const table=document.getElementById('timeGrid');
+ table.innerHTML='<thead><tr><th>시간</th>'+DAYS.map(d=>'<th>'+d+'</th>').join('')+'</tr></thead>';
+ const body=document.createElement('tbody');
+ TIMES.forEach(t=>{
+   const tr=document.createElement('tr');
+   const th=document.createElement('th');th.textContent=t;tr.appendChild(th);
+   DAYS.forEach(d=>{
+     const td=document.createElement('td');
+     const b=document.createElement('button');b.type='button';b.className='cell';b.dataset.day=d;b.dataset.time=t;
+     b.onclick=()=>{b.classList.toggle('selected');b.textContent=b.classList.contains('selected')?'✓':''};
+     td.appendChild(b);tr.appendChild(td);
+   });
+   body.appendChild(tr);
+ });
+ table.appendChild(body);
+}
+buildGrid();
+
+let timer;
+document.getElementById('studentId').addEventListener('input',function(){
+ clearTimeout(timer);const value=this.value.trim();const hint=document.getElementById('idHint');hint.textContent='';
+ if(value.length<4)return;
+ timer=setTimeout(()=>{
+   google.script.run.withSuccessHandler(res=>{
+     if(res&&res.duplicated){hint.textContent='이미 이번 회차에 제출한 학번입니다.';hint.className='hint bad'}
+     else{hint.textContent='제출 가능한 학번입니다.';hint.className='hint ok'}
+   }).checkStudentId(value)
+ },450);
+});
+
+function alertMsg(msg){const a=document.getElementById('alert');a.textContent=msg;a.style.display='block';scrollTo(0,0)}
+function handleSubmit(){
+ document.getElementById('alert').style.display='none';
+ const slots=[...document.querySelectorAll('.cell.selected')].map(x=>x.dataset.day+' '+x.dataset.time);
+ const data={
+   studentId:document.getElementById('studentId').value.trim(),
+   name:document.getElementById('name').value.trim(),
+   timeSlots:slots,
+   clubActivity:document.getElementById('clubActivity').value.trim(),
+   note:document.getElementById('note').value.trim()
+ };
+ if(!data.studentId)return alertMsg('학번을 입력해 주세요.');
+ if(!data.name)return alertMsg('이름을 입력해 주세요.');
+ if(!data.timeSlots.length)return alertMsg('가능한 시간대를 1개 이상 선택해 주세요.');
+ if(!data.clubActivity)return alertMsg('동아리 활동 내용을 입력해 주세요.');
+
+ const btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='제출 중...';
+ google.script.run.withSuccessHandler(res=>{
+   if(res&&res.ok){
+     document.getElementById('doneMsg').textContent=res.message||'참여해 주셔서 감사합니다!';
+     document.getElementById('formView').style.display='none';
+     document.getElementById('doneView').style.display='block';
+     scrollTo(0,0);
+   }else{
+     alertMsg((res&&res.message)||'저장 중 오류가 발생했습니다.');
+     btn.disabled=false;btn.textContent='확인';
+   }
+ }).withFailureHandler(err=>{
+   alertMsg(err.message||'저장 중 오류가 발생했습니다.');
+   btn.disabled=false;btn.textContent='확인';
+ }).submitForm(data);
+}
+</script>
+</body>
+</html>
