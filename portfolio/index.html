@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="キム・ミンヘ｜日本語日本文学専攻・交換留学・IT/AI学習">
+  <title>キム・ミンヘ｜Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+:root{--bg:#fbf8ec;--ink:#1c2b22;--mut:#5f6d63;--g1:#14532d;--g2:#2f8f5b;--g3:#bfe3c6;--y1:#ffd23f;--y2:#ffe88a;--y3:#fff7cf;--line:#e9e4c9;--r:22px;--sh:0 14px 34px rgba(20,83,45,.10)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:"Noto Sans JP","Noto Sans KR",system-ui,sans-serif;color:var(--ink);line-height:1.8;background:radial-gradient(40rem 28rem at 6% 0,rgba(255,210,63,.3),transparent 70%),radial-gradient(38rem 30rem at 98% 16%,rgba(47,143,91,.18),transparent 70%),var(--bg)}
+html[lang=ko] body{word-break:keep-all}
+h1,h2,h3,h4,.logo,.journey-number,.count{font-family:"Zen Maru Gothic","Noto Sans JP","Noto Sans KR",sans-serif}
+a{color:inherit;text-decoration:none}ul{list-style:none}
+.site-header{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding:12px clamp(16px,4vw,48px);background:rgba(251,248,236,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font-weight:900;color:var(--g1);letter-spacing:.05em}.logo:before{content:"";display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--y1);margin-right:8px;box-shadow:0 0 0 4px rgba(255,210,63,.35)}
+.site-header nav{display:flex;gap:2px}.nav-link{padding:6px 12px;border-radius:99px;font-size:.86rem;font-weight:700;color:var(--mut);transition:.2s;white-space:nowrap}.nav-link:hover{background:var(--y2);color:var(--g1)}
+.language-switcher{display:flex;gap:2px;padding:3px;border-radius:99px;background:#fff;border:1px solid var(--line)}
+.lang-btn{border:0;background:none;font:inherit;font-size:.78rem;font-weight:800;padding:6px 12px;border-radius:99px;color:var(--mut);cursor:pointer}.lang-btn.active{background:var(--g1);color:#fff}
+main>section{max-width:1100px;margin:0 auto;padding:clamp(52px,8vw,92px) clamp(18px,4vw,32px)}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:900;letter-spacing:.16em;color:var(--g1);background:var(--y2);padding:6px 14px;border-radius:99px;margin-bottom:14px}.section-label:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--g2)}
+h2{font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.35;color:var(--g1);margin-bottom:26px}.section-sub{color:var(--mut);max-width:660px;margin:-12px 0 26px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}.hero-copy>*{animation:up .7s both}
+.eyebrow{display:inline-block;font-weight:800;font-size:.85rem;color:var(--g1);background:var(--y2);padding:6px 16px;border-radius:99px;margin-bottom:16px}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.1;color:var(--g1)}.affiliation{color:var(--mut);font-weight:700;margin:10px 0 22px}
+.hero h2{font-size:clamp(1.2rem,2.5vw,1.75rem);color:var(--ink);margin-bottom:16px}.highlight{background:linear-gradient(transparent 58%,var(--y1) 58%);padding:0 4px}
+.lead{color:var(--mut);max-width:560px}.scroll-link{display:inline-flex;align-items:center;gap:10px;margin-top:24px;font-size:.78rem;font-weight:900;letter-spacing:.14em;color:var(--g1)}
+.arrow{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--y1);animation:bob 1.6s infinite}
+.hero-side{position:relative;justify-self:center;width:min(380px,86%)}.hero-side:before{content:"";position:absolute;inset:-6% -8% -8% 10%;background:var(--y1);border-radius:46% 54% 50% 50%/52% 44% 56% 48%;transform:rotate(-6deg)}
+.hero-side:after{content:"";position:absolute;width:88px;height:88px;border-radius:50%;background:var(--g2);left:-26px;bottom:-16px}
+.profile-image{position:relative;z-index:1;display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:32px;border:6px solid #fff;box-shadow:var(--sh)}
+.intro-content{position:relative;overflow:hidden;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(24px,5vw,48px);box-shadow:var(--sh)}.intro-content:before{content:"";position:absolute;right:-50px;top:-50px;width:150px;height:150px;border-radius:50%;background:var(--y2)}
+.intro-title{position:relative;font-family:"Zen Maru Gothic","Noto Sans JP","Noto Sans KR",sans-serif;font-size:clamp(1.25rem,3vw,1.85rem);font-weight:900;line-height:1.55;margin-bottom:16px}.intro-highlight{color:var(--g2)}.intro-text{position:relative;color:var(--mut)}
+.journey-timeline{position:relative;display:grid;gap:18px}.journey-timeline:before{content:"";position:absolute;left:27px;top:24px;bottom:24px;width:3px;border-radius:3px;background:linear-gradient(var(--y1),var(--g2))}
+.journey-step{position:relative;display:grid;grid-template-columns:56px 1fr;gap:20px}.journey-number{width:56px;height:56px;border-radius:50%;background:var(--y1);color:var(--g1);display:grid;place-items:center;font-weight:900;box-shadow:0 0 0 6px rgba(255,210,63,.3)}
+.journey-content,.skill-card,.project-card,.vibe-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}.journey-content{padding:22px 24px}
+.journey-content h3,.skill-card h3,.project-card h3{font-size:1.1rem;color:var(--g1)}.journey-content p{color:var(--mut);font-size:.9rem;margin:2px 0 10px}
+.journey-content ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4px 18px;font-size:.92rem}.journey-content li:before{content:"✓";color:var(--g2);font-weight:900;margin-right:8px}
+.journey-badge{display:inline-block;margin-top:12px;font-size:.74rem;font-weight:800;padding:4px 12px;border-radius:99px;background:var(--g3);color:var(--g1)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}.chip{border:2px solid var(--g1);background:#fff;color:var(--g1);font:inherit;font-weight:800;font-size:.84rem;padding:7px 16px;border-radius:99px;cursor:pointer;transition:.2s}.chip:hover{background:var(--y2)}.chip.active{background:var(--g1);color:#fff}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
+.project-card{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:26px 24px 24px;transition:.25s}.project-card:before{content:"";position:absolute;inset:0 0 auto;height:6px;background:linear-gradient(90deg,var(--g2),var(--y1))}.project-card:hover{transform:translateY(-6px)}.project-card[hidden]{display:none}
+.project-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.project-badge{white-space:nowrap;font-size:.7rem;font-weight:800;padding:4px 10px;border-radius:99px;background:var(--y2);color:var(--g1)}
+.project-desc{color:var(--mut);font-size:.92rem}.project-features{display:flex;flex-wrap:wrap;gap:6px}.project-features span{font-size:.76rem;font-weight:700;padding:4px 10px;border-radius:99px;background:#eef8f0;color:var(--g1)}
+.project-tech{font-size:.76rem;color:var(--mut);margin-top:auto}.project-open{align-self:flex-start;font-weight:900;font-size:.88rem;padding:9px 18px;border-radius:99px;background:var(--g1);color:#fff;transition:.2s}.project-open:hover{background:var(--y1);color:var(--g1)}.project-open.is-soon{background:#e6e6dc;color:#8a8a7c;cursor:default}
+.vibe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}.vibe-card{position:relative;padding:26px 24px;border-top:6px solid var(--g2)}.vibe-card:nth-child(2){border-top-color:var(--y1)}.vibe-card:nth-child(3){border-top-color:var(--g3)}
+.count{position:absolute;right:20px;top:14px;font-size:2.4rem;font-weight:900;line-height:1;color:var(--y1)}.vibe-card h4{font-size:1.15rem;color:var(--g1);margin-bottom:14px}
+.vibe-card:nth-child(1) h4:before{content:"📁 "}.vibe-card:nth-child(2) h4:before{content:"📝 "}.vibe-card:nth-child(3) h4:before{content:"🎈 "}
+.app-links{display:flex;flex-wrap:wrap;gap:8px}.app-links a{display:inline-block;font-size:.84rem;font-weight:700;padding:7px 14px;border-radius:99px;background:var(--y3);border:1px solid var(--y2);color:var(--g1);transition:.2s}.app-links a:hover{background:var(--g2);border-color:var(--g2);color:#fff;transform:translateY(-2px)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.skill-card{padding:22px}.skill-icon{width:48px;height:48px;border-radius:14px;background:var(--y2);display:grid;place-items:center;font-size:1.5rem;margin-bottom:10px}.skill-card:nth-child(even) .skill-icon{background:var(--g3)}.skill-card h3{margin-bottom:8px}
+.skill-card li{padding:3px 0;font-size:.9rem;color:var(--mut)}.skill-card li:before{content:"●";color:var(--y1);margin-right:8px;font-size:.6rem;vertical-align:middle}.skill-badge{margin-left:8px;font-size:.7rem;font-weight:900;padding:2px 9px;border-radius:99px;background:var(--g1);color:var(--y1)}
+main>.contact-section{position:relative;overflow:hidden;width:calc(100% - 36px);max-width:1060px;margin:30px auto 70px;padding:clamp(32px,6vw,64px);background:linear-gradient(135deg,var(--g1),#1d6b3f);color:#fff;border-radius:32px}
+.contact-section:after{content:"";position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:var(--y1)}.contact-section .section-label{background:var(--y1)}.contact-section h2{color:#fff}
+.contact-links{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:12px}.contact-links a{background:#fff;color:var(--g1);font-weight:800;padding:12px 22px;border-radius:99px;transition:.2s}.contact-links a:hover{background:var(--y1);transform:translateY(-3px)}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}@keyframes bob{50%{transform:translateY(5px)}}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr;gap:32px}.hero-side{order:-1;width:min(290px,72%)}.site-header nav{order:3;width:100%;overflow-x:auto}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#top">MINHYE KIM</a>
+    <nav aria-label="メインナビゲーション">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#journey" class="nav-link">Journey</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#vibe" class="nav-link">Vibe</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    
+    <!-- 언어 전환 버튼 -->
+    <div class="language-switcher">
+      <button class="lang-btn active" data-lang="ja">日本語</button>
+      <button class="lang-btn" data-lang="ko">한국어</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span data-ja="言葉と技術をつなぐ グローバルIT人材" data-ko="언어와 기술을 잇는 글로벌 IT 인재">言葉と技術をつなぐ グローバルIT人材</span>
+            </p>
+
+            <h1>
+              <span data-ja="キム・ミンヘ" data-ko="김민혜">キム・ミンヘ</span>
+            </h1>
+            
+            <p class="affiliation">
+              <span data-ja="慶星大学校 日本語日本文学専攻 4年" data-ko="경성대학교 일어일문학과 4학년">慶星大学校 日本語日本文学専攻 4年</span>
+            </p>
+
+            <h2>
+              <span data-ja="日本での就職を目指し、" data-ko="일본 취업을 목표로,">日本での就職を目指し、</span><br>
+              <span class="highlight" data-ja="ITとAIで新しい価値を創造します。" data-ko="IT와 AI로 새로운 가치를 만듭니다。">ITとAIで新しい価値を創造します。</span>
+            </h2>
+
+            <p class="lead">
+              <span data-ja="日本語と日本文化を深く学び、福岡での交換留学を通じて現地の生活と文化を体験しました。現在はK-MOVE海外就職研修でIT・AIを習得し、言葉・文化への理解と技術を組み合わせたものづくりに挑戦しています。" data-ko="일본어와 일본 문화를 깊이 있게 학습했으며, 후쿠오카 교환학생 경험을 통해 현지 생활과 문화를 체험했습니다. 현재는 K-MOVE 해외취업 연수에 참여하여 IT·AI를 습득하고 있으며, 언어·문화 이해와 기술을 결합한 서비스 개발에 도전하고 있습니다.">日本語と日本文化を深く学び、福岡での交換留学を通じて現地の生活と文化を体験しました。現在はK-MOVE海外就職研修でIT・AIを習得し、言葉・文化への理解と技術を組み合わせたものづくりに挑戦しています。</span>
+            </p>
+
+            <a class="scroll-link" href="#about">
+              <span data-ja="SCROLL TO EXPLORE" data-ko="아래로 스크롤">SCROLL TO EXPLORE</span>
+              <span class="arrow">↓</span>
+            </a>
+          </div>
+
+          <aside class="hero-side" aria-label="プロフィール概要">
+            <img src="img/profile.jpg" alt="プロフィール写真" class="profile-image">
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <section id="about" class="intro-section">
+      <div class="section-label">
+        <span data-ja="ABOUT ME" data-ko="자기소개">ABOUT ME</span>
+      </div>
+      <div class="intro-content">
+        <p class="intro-title">
+          <span data-ja="日本語を学ぶだけでなく、" data-ko="일본어를 배우는 것 이상으로,">日本語を学ぶだけでなく、</span><br>
+          <span class="intro-highlight" data-ja="その背景にある文化や人を理解する。" data-ko="그 배경에 있는 문화와 사람을 이해한다.">その背景にある文化や人を理解する。</span>
+        </p>
+        <p class="intro-text">
+          <span data-ja="日本語日本文学を専攻し、日韓バディプログラムや福岡での交換留学を経験しました。現在はIT・AIを学びながら、日本語と文化への理解を技術につなげ、利用する人の立場から考えられるサービスをつくることを目指しています。" data-ko="일어일문학과를 전공하였으며, 한일 버디 프로그램과 후쿠오카 교환학생 경험을 쌓았습니다. 현재 IT·AI를 학습하면서 일본어와 문화 이해를 기술과 연결하여, 사용자 입장에서 생각하는 서비스를 만드는 것을 목표로 합니다.">日本語日本文学を専攻し、日韓バディプログラムや福岡での交換留学を経験しました。現在はIT・AIを学びながら、日本語と文化への理解を技術につなげ、利用する人の立場から考えられるサービスをつくることを目指しています。</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== JOURNEY SECTION ===== -->
+    <section id="journey" class="journey-section">
+      <div class="section-label">
+        <span data-ja="JOURNEY" data-ko="여정">JOURNEY</span>
+      </div>
+      <h2>
+        <span data-ja="私の成長過程" data-ko="나의 성장 과정">私の成長過程</span>
+      </h2>
+
+      <div class="journey-timeline">
+        <!-- Step 1: 日本語日本文学専攻 -->
+        <div class="journey-step">
+          <div class="journey-number">01</div>
+          <div class="journey-content">
+            <h3>
+              <span data-ja="日本語日本文学専攻" data-ko="일어일문학과 전공">日本語日本文学専攻</span>
+            </h3>
+            <p>
+              <span data-ja="慶星大学校入学（2021年3月）" data-ko="경성대학교 입학 (2021년 3월)">慶星大学校入学（2021年3月）</span>
+            </p>
+            <ul>
+              <li><span data-ja="日本語力の基礎構築" data-ko="일본어 능력의 기초 구축">日本語力の基礎構築</span></li>
+              <li><span data-ja="日本文化・文学の深い理解" data-ko="일본 문화·문학의 깊이 있는 이해">日本文化・文学の深い理解</span></li>
+              <li><span data-ja="日韓バディプログラム参加" data-ko="한일 버디 프로그램 참가">日韓バディプログラム参加</span></li>
+              <li><span data-ja="日本語会話スキルの習得" data-ko="일본어 회화 기술 습득">日本語会話スキルの習得</span></li>
+            </ul>
+            <span class="journey-badge" data-ja="基礎期間" data-ko="기초 기간">基礎期間</span>
+          </div>
+        </div>
+
+        <!-- Step 2: 交換留学 -->
+        <div class="journey-step">
+          <div class="journey-number">02</div>
+          <div class="journey-content">
+            <h3>
+              <span data-ja="福岡交換留学" data-ko="후쿠오카 교환학생">福岡交換留学</span>
+            </h3>
+            <p>
+              <span data-ja="3年次・半年間（2024年上期）" data-ko="3학년 때·반년 (2024년 상반기)">3年次・半年間（2024年上期）</span>
+            </p>
+            <ul>
+              <li><span data-ja="日本での実践的な生活経験" data-ko="일본에서의 실전적인 생활 경험">日本での実践的な生活経験</span></li>
+              <li><span data-ja="現地コミュニティとの交流" data-ko="현지 커뮤니티와의 교류">現地コミュニティとの交流</span></li>
+              <li><span data-ja="日本文化の肌感覚での理解" data-ko="일본 문화의 생생한 이해">日本文化の肌感覚での理解</span></li>
+              <li><span data-ja="独立心と適応能力の育成" data-ko="독립심과 적응 능력의 육성">独立心と適応能力の育成</span></li>
+            </ul>
+            <span class="journey-badge" data-ja="実践期間" data-ko="실전 기간">実践期間</span>
+          </div>
+        </div>
+
+        <!-- Step 3: 해운대 해변열차 -->
+        <div class="journey-step">
+          <div class="journey-number">03</div>
+          <div class="journey-content">
+            <h3>
+              <span data-ja="海雲台ビーチトレイン アルバイト" data-ko="해운대 해변열차 아르바이트">海雲台ビーチトレイン アルバイト</span>
+            </h3>
+            <p>
+              <span data-ja="日本人観光客向けサービス提供（現在進行中）" data-ko="일본인 관광객 서비스 제공 (현재 진행 중)">日本人観光客向けサービス提供（現在進行中）</span>
+            </p>
+            <ul>
+              <li><span data-ja="日本人観光客への実践的なサービス" data-ko="일본인 관광객에게 실전적인 서비스 제공">日本人観光客への実践的なサービス</span></li>
+              <li><span data-ja="日本語を活かした現場コミュニケーション" data-ko="일본어를 살린 현장 커뮤니케이션">日本語を活かした現場コミュニケーション</span></li>
+              <li><span data-ja="文化的配慮を含むおもてなし" data-ko="문화적 배려를 포함한 서비스">文化的配慮を含むおもてなし</span></li>
+              <li><span data-ja="ユーザー視点の問題発見と改善" data-ko="사용자 관점의 문제 발견과 개선">ユーザー視点の問題発見と改善</span></li>
+            </ul>
+            <span class="journey-badge" data-ja="応用期間" data-ko="응용 기간">応用期間</span>
+          </div>
+        </div>
+
+        <!-- Step 4: K-MOVE -->
+        <div class="journey-step">
+          <div class="journey-number">04</div>
+          <div class="journey-content">
+            <h3>
+              <span data-ja="K-MOVE海外就職研修" data-ko="K-MOVE 해외취업 연수">K-MOVE海外就職研修</span>
+            </h3>
+            <p>
+              <span data-ja="IT・AI専攻（現在進行中）" data-ko="IT·AI 전공 (현재 진행 중)">IT・AI専攻（現在進行中）</span>
+            </p>
+            <ul>
+              <li><span data-ja="Web開発スキル習得（HTML・CSS・JavaScript）" data-ko="웹 개발 기술 습득 (HTML·CSS·JavaScript)">Web開発スキル習得（HTML・CSS・JavaScript）</span></li>
+              <li><span data-ja="AI・データ分析基礎の学習" data-ko="AI·데이터 분석 기초 학습">AI・データ分析基礎の学習</span></li>
+              <li><span data-ja="実践的なWebアプリ開発プロジェクト" data-ko="실전적인 웹앱 개발 프로젝트">実践的なWebアプリ開発プロジェクト</span></li>
+              <li><span data-ja="日本語と技術を組み合わせた人材へ進化" data-ko="일본어와 기술을 결합한 인재로 진화">日本語と技術を組み合わせた人材へ進化</span></li>
+            </ul>
+            <span class="journey-badge" data-ja="統合期間" data-ko="통합 기간">統合期間</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS ===== -->
+    <section id="projects" class="projects-section">
+      <div class="section-label"><span data-ja="PROJECTS" data-ko="프로젝트">PROJECTS</span></div>
+      <h2><span data-ja="実践的なプロジェクト" data-ko="실전 프로젝트">実践的なプロジェクト</span></h2>
+      <div class="filters"><button class="chip active" data-f="all" data-ja="ALL" data-ko="ALL">ALL</button><button class="chip" data-f="travel" data-ja="✈️ 旅行・観光" data-ko="✈️ 여행·관광">✈️ 旅行・観光</button><button class="chip" data-f="gas" data-ja="🗂️ 自動化・GAS" data-ko="🗂️ 자동화·GAS">🗂️ 自動化・GAS</button><button class="chip" data-f="event" data-ja="🎉 イベント・案内" data-ko="🎉 이벤트·안내">🎉 イベント・案内</button><button class="chip" data-f="web" data-ja="🌱 自己紹介・Web" data-ko="🌱 자기소개·웹">🌱 自己紹介・Web</button></div>
+      <div class="projects-grid"><article class="project-card" data-tags="travel"><div class="project-header"><h3 data-ja="K-TRIP NAVI" data-ko="K-TRIP NAVI">K-TRIP NAVI</h3><span class="project-badge" data-ja="旅行" data-ko="여행">旅行</span></div><p class="project-desc" data-ja="日本人訪韓観光客のための韓国旅行総合ガイドサイト" data-ko="일본인 방한 관광객을 위한 한국 여행 종합 가이드 사이트">日本人訪韓観光客のための韓国旅行総合ガイドサイト</p><div class="project-features"><span data-ja="チェックリスト" data-ko="체크리스트">チェックリスト</span><span data-ja="実戦韓国語会話" data-ko="실전 한국어 회화">実戦韓国語会話</span><span data-ja="ワンクリックコピー" data-ko="원클릭 복사">ワンクリックコピー</span><span data-ja="緊急連絡先ダイヤル" data-ko="긴급 연락처 다이얼">緊急連絡先ダイヤル</span></div><p class="project-tech">HTML5 · CSS · JavaScript · localStorage</p><a class="project-open" href="apps/ktrip/index.html" target="_blank" rel="noopener" data-ja="サイトを見る →" data-ko="사이트 보기 →">サイトを見る →</a></article><article class="project-card" data-tags="travel"><div class="project-header"><h3 data-ja="K-Food Guide（焼きfamily）" data-ko="K-Food Guide (焼きfamily)">K-Food Guide（焼きfamily）</h3><span class="project-badge" data-ja="チーム制作" data-ko="팀 제작">チーム制作</span></div><p class="project-desc" data-ja="日本人旅行者向けの韓国グルメガイド。キオスク注文体験や辛さ診断、釜山グルメMAPなどを収録" data-ko="일본인 여행자를 위한 한국 맛집 가이드. 키오스크 주문 체험·맵기 진단·부산 맛집 MAP 등을 담았어요">日本人旅行者向けの韓国グルメガイド。キオスク注文体験や辛さ診断、釜山グルメMAPなどを収録</p><div class="project-features"><span data-ja="キオスク注文体験" data-ko="키오스크 주문 체험">キオスク注文体験</span><span data-ja="辛さ診断" data-ko="맵기 진단">辛さ診断</span><span data-ja="ソメク計算機" data-ko="소맥 계산기">ソメク計算機</span><span data-ja="釜山グルメMAP" data-ko="부산 맛집 MAP">釜山グルメMAP</span></div><p class="project-tech">HTML5 · CSS · JavaScript</p><a class="project-open" href="https://iseongu123.github.io/tour_busan/" target="_blank" rel="noopener" data-ja="サイトを見る →" data-ko="사이트 보기 →">サイトを見る →</a></article><!-- TODO: 設問アンケートのApps Script配布URLに差し替え / 설문 배포 URL로 교체 --><article class="project-card" data-tags="gas"><div class="project-header"><h3 data-ja="教育資料申込・満足度アンケート" data-ko="교육자료 신청·만족도 설문">教育資料申込・満足度アンケート</h3><span class="project-badge" data-ja="GAS" data-ko="GAS">GAS</span></div><p class="project-desc" data-ja="5問のアンケートに答えると、Google Sheetsに自動で保存されるWebアプリ" data-ko="5문항 설문에 답하면 Google Sheets에 자동 저장되는 웹앱">5問のアンケートに答えると、Google Sheetsに自動で保存されるWebアプリ</p><div class="project-features"><span data-ja="進捗バー" data-ko="진행 바">進捗バー</span><span data-ja="入力チェック" data-ko="입력값 검증">入力チェック</span><span data-ja="Sheets自動保存" data-ko="Sheets 자동 저장">Sheets自動保存</span><span data-ja="デモ版で体験可" data-ko="데모로 체험 가능">デモ版で体験可</span></div><p class="project-tech">Google Apps Script · Google Sheets · HTML/CSS/JS</p><a class="project-open" href="apps/survey/index.html" target="_blank" rel="noopener" data-ja="サイトを見る →" data-ko="사이트 보기 →">サイトを見る →</a></article><article class="project-card" data-tags="gas"><div class="project-header"><h3 data-ja="スタディ時間調整" data-ko="스터디 시간 조율">スタディ時間調整</h3><span class="project-badge" data-ja="GAS" data-ko="GAS">GAS</span></div><p class="project-desc" data-ja="参加者が都合のよい時間を入力して、勉強会の日程を調整するWebアプリ" data-ko="참가자가 가능한 시간을 입력해 스터디 일정을 조율하는 웹앱">参加者が都合のよい時間を入力して、勉強会の日程を調整するWebアプリ</p><div class="project-features"><span data-ja="時間入力" data-ko="시간 입력">時間入力</span><span data-ja="日程調整" data-ko="일정 조율">日程調整</span><span data-ja="完了画面" data-ko="완료 화면">完了画面</span></div><p class="project-tech">Google Apps Script · Google Sheets · Tailwind CSS</p><a class="project-open" href="https://url.kr/iyptou" target="_blank" rel="noopener" data-ja="サイトを見る →" data-ko="사이트 보기 →">サイトを見る →</a></article><article class="project-card" data-tags="event gas"><div class="project-header"><h3 data-ja="焼き Family MT 案内（加平）" data-ko="焼き Family MT 안내 (가평)">焼き Family MT 案内（加平）</h3><span class="project-badge" data-ja="チーム企画" data-ko="팀 기획">チーム企画</span></div><p class="project-desc" data-ja="1泊2日のチームMTの日程・行き方・食事・持ち物・会費をひとつにまとめた案内ページ" data-ko="1박 2일 팀 MT의 일정·오시는 길·먹거리·준비물·회비를 한곳에 모은 안내 페이지">1泊2日のチームMTの日程・行き方・食事・持ち物・会費をひとつにまとめた案内ページ</p><div class="project-features"><span data-ja="D-Dayカウントダウン" data-ko="D-Day 카운트다운">D-Dayカウントダウン</span><span data-ja="タイムテーブル" data-ko="타임테이블">タイムテーブル</span><span data-ja="持ち物チェック" data-ko="준비물 체크">持ち物チェック</span><span data-ja="会費精算" data-ko="회비 정산">会費精算</span></div><p class="project-tech">HTML5 · CSS · JavaScript · Google Apps Script</p><a class="project-open" href="https://url.kr/gqm856" target="_blank" rel="noopener" data-ja="サイトを見る →" data-ko="사이트 보기 →">サイトを見る →</a></article><article class="project-card" data-tags="web"><div class="project-header"><h3 data-ja="自己紹介Webページ" data-ko="내 소개 웹페이지">自己紹介Webページ</h3><span class="project-badge" data-ja="Web制作" data-ko="웹 제작">Web制作</span></div><p class="project-desc" data-ja="HTML・CSSで作った、日本語/韓国語切り替え対応の自己紹介ページ" data-ko="HTML·CSS로 만든 일본어/한국어 전환 지원 자기소개 페이지">HTML・CSSで作った、日本語/韓国語切り替え対応の自己紹介ページ</p><div class="project-features"><span data-ja="日韓言語切り替え" data-ko="한일 언어 전환">日韓言語切り替え</span><span data-ja="レスポンシブ" data-ko="반응형">レスポンシブ</span><span data-ja="プロフィール写真" data-ko="프로필 사진">プロフィール写真</span></div><p class="project-tech">HTML5 · CSS · JavaScript</p><a class="project-open" href="apps/profile/index.html" data-ja="サイトを見る →" data-ko="사이트 보기 →">サイトを見る →</a></article></div>
+    </section>
+
+    <!-- ===== VIBE CODING (3 types) ===== -->
+    <section id="vibe" class="vibe-section">
+      <div class="section-label"><span data-ja="VIBE CODING" data-ko="바이브 코딩">VIBE CODING</span></div>
+      <h2><span data-ja="バイブコーディング 16 Webアプリ" data-ko="바이브 코딩 16개 웹 앱">バイブコーディング 16 Webアプリ</span></h2>
+      <p class="section-sub" data-ja="HTML・CSS・JavaScriptで作った、すぐ使えるミニツール集。3つのタイプに分けました。" data-ko="HTML·CSS·JavaScript로 만든 바로 쓰는 미니 도구 모음. 3가지 유형으로 나눴어요.">HTML・CSS・JavaScriptで作った、すぐ使えるミニツール集。3つのタイプに分けました。</p>
+      <div class="vibe-grid"><div class="app-group vibe-card"><span class="count">7</span>
+            <h4 data-ja="ファイル・メディア" data-ko="파일·미디어">ファイル・メディア</h4>
+            <ul class="app-links">
+              <li><a href="apps/ex07/index.html" target="_blank" rel="noopener" data-ja="画像一括リサイズ" data-ko="이미지 일괄 리사이즈">画像一括リサイズ</a></li>
+              <li><a href="apps/ex06/index.html" target="_blank" rel="noopener" data-ja="文書サイズ圧縮" data-ko="문서용량 압축기">文書サイズ圧縮</a></li>
+              <li><a href="apps/ex27/index.html" target="_blank" rel="noopener" data-ja="PDF結合" data-ko="PDF 합치기">PDF結合</a></li>
+              <li><a href="apps/ex08/index.html" target="_blank" rel="noopener" data-ja="動画 → GIF 変換" data-ko="동영상 → GIF 변환">動画 → GIF 変換</a></li>
+              <li><a href="apps/ex09/index.html" target="_blank" rel="noopener" data-ja="GIF編集スタジオ" data-ko="GIF 편집 스튜디오">GIF編集スタジオ</a></li>
+              <li><a href="apps/ex32/index.html" target="_blank" rel="noopener" data-ja="Webオーディオエディター" data-ko="웹 오디오 에디터">Webオーディオエディター</a></li>
+              <li><a href="apps/ex05/index.html" target="_blank" rel="noopener" data-ja="Smart QR" data-ko="Smart QR">Smart QR</a></li>
+            </ul>
+          </div><div class="app-group vibe-card"><span class="count">4</span>
+            <h4 data-ja="テキスト・文書" data-ko="텍스트·문서">テキスト・文書</h4>
+            <ul class="app-links">
+              <li><a href="apps/ex24/index.html" target="_blank" rel="noopener" data-ja="文字数・バイトカウンター" data-ko="글자 수 & 바이트 세기">文字数・バイトカウンター</a></li>
+              <li><a href="apps/ex25/index.html" target="_blank" rel="noopener" data-ja="文書ファイル統計分析" data-ko="문서 파일 통계 분석">文書ファイル統計分析</a></li>
+              <li><a href="apps/ex26/index.html" target="_blank" rel="noopener" data-ja="Lorem Ipsum 生成" data-ko="Lorem Ipsum 생성기">Lorem Ipsum 生成</a></li>
+              <li><a href="apps/ex31/index.html" target="_blank" rel="noopener" data-ja="文書要点要約" data-ko="족집게 요약 앱">文書要点要約</a></li>
+            </ul>
+          </div><div class="app-group vibe-card"><span class="count">5</span>
+            <h4 data-ja="生活・エンタメ" data-ko="생활·재미">生活・エンタメ</h4>
+            <ul class="app-links">
+              <li><a href="apps/ex23/index.html" target="_blank" rel="noopener" data-ja="今日の運勢" data-ko="오늘의 운세">今日の運勢</a></li>
+              <li><a href="apps/ex28/index.html" target="_blank" rel="noopener" data-ja="不在お知らせ" data-ko="부재 중 알리미">不在お知らせ</a></li>
+              <li><a href="apps/ex29/index.html" target="_blank" rel="noopener" data-ja="BMI計算機" data-ko="BMI 계산기">BMI計算機</a></li>
+              <li><a href="apps/ex30/index.html" target="_blank" rel="noopener" data-ja="くじ引きキャノン" data-ko="복불복 캐논 추첨기">くじ引きキャノン</a></li>
+              <li><a href="apps/ex04/index.html" target="_blank" rel="noopener" data-ja="モバイル招待状" data-ko="모바일 청첩장">モバイル招待状</a></li>
+            </ul>
+          </div></div>
+    </section>
+
+    <!-- ===== SKILLS SECTION ===== -->
+    <section id="skills" class="skills-section">
+      <div class="section-label">
+        <span data-ja="SKILLS" data-ko="기술 스택">SKILLS</span>
+      </div>
+      <h2>
+        <span data-ja="専攻スキル" data-ko="전문 기술">専攻スキル</span>
+      </h2>
+
+      <div class="skills-grid">
+        <!-- 言語 -->
+        <div class="skill-card">
+          <div class="skill-icon">🗣️</div>
+          <h3>
+            <span data-ja="言語" data-ko="언어">言語</span>
+          </h3>
+          <ul>
+            <li>
+              <span data-ja="日本語" data-ko="일본어">日本語</span>
+              <span class="skill-badge">JLPT N1</span>
+            </li>
+            <li><span data-ja="JLPT N1 レベル（12月再受験予定）" data-ko="JLPT N1 수준 (12월 재응시 예정)">JLPT N1 レベル（12月再受験予定）</span></li>
+            <li><span data-ja="日本語での日常会話が可能" data-ko="일본어 일상 회화 가능">日本語での日常会話が可能</span></li>
+          </ul>
+        </div>
+
+        <!-- フロントエンド -->
+        <div class="skill-card">
+          <div class="skill-icon">💻</div>
+          <h3>
+            <span data-ja="フロントエンド" data-ko="프론트엔드">フロントエンド</span>
+          </h3>
+          <ul>
+            <li>HTML5, CSS (Tailwind CSS)</li>
+            <li>JavaScript (ES6+)</li>
+            <li><span data-ja="レスポンシブWebデザイン" data-ko="반응형 웹 설계">レスポンシブWebデザイン</span></li>
+            <li><span data-ja="UI/UX 実装" data-ko="UI/UX 구현">UI/UX 実装</span></li>
+          </ul>
+        </div>
+
+        <!-- バックエンド & ツール -->
+        <div class="skill-card">
+          <div class="skill-icon">⚙️</div>
+          <h3>
+            <span data-ja="バックエンド & ツール" data-ko="백엔드 & 도구">バックエンド & ツール</span>
+          </h3>
+          <ul>
+            <li>Google Apps Script</li>
+            <li><span data-ja="Google Sheets 連携" data-ko="Google Sheets 연동">Google Sheets 連携</span></li>
+            <li>Git / GitHub</li>
+            <li>VS Code</li>
+          </ul>
+        </div>
+
+        <!-- AI & データ分析 -->
+        <div class="skill-card">
+          <div class="skill-icon">🤖</div>
+          <h3>
+            <span data-ja="AI & データ分析" data-ko="AI & 데이터 분석">AI & データ分析</span>
+          </h3>
+          <ul>
+            <li><span data-ja="Python (基礎)" data-ko="Python (기초)">Python (基礎)</span></li>
+            <li><span data-ja="ChatGPT / 生成型AI活用" data-ko="ChatGPT / 생성형 AI 활용">ChatGPT / 生成型AI活用</span></li>
+            <li><span data-ja="データ整理・分析" data-ko="데이터 정제·분석">データ整理・分析</span></li>
+            <li><span data-ja="文書要約・統計分析" data-ko="문서 요약·통계 분석">文書要約・統計分析</span></li>
+          </ul>
+        </div>
+
+        <!-- ファイル処理 -->
+        <div class="skill-card">
+          <div class="skill-icon">📁</div>
+          <h3>
+            <span data-ja="ファイル処理" data-ko="파일 처리">ファイル処理</span>
+          </h3>
+          <ul>
+            <li><span data-ja="画像リサイズ・変換" data-ko="이미지 리사이즈·변환">画像リサイズ・変換</span></li>
+            <li><span data-ja="PDF結合・圧縮" data-ko="PDF 병합·압축">PDF結合・圧縮</span></li>
+            <li><span data-ja="GIF・オーディオ編集" data-ko="GIF·오디오 편집">GIF・オーディオ編集</span></li>
+          </ul>
+        </div>
+
+        <!-- コミュニケーション -->
+        <div class="skill-card">
+          <div class="skill-icon">🤝</div>
+          <h3>
+            <span data-ja="コミュニケーション" data-ko="커뮤니케이션">コミュニケーション</span>
+          </h3>
+          <ul>
+            <li><span data-ja="グローバル協働" data-ko="글로벌 협업">グローバル協働</span></li>
+            <li><span data-ja="初対面でも信頼構築" data-ko="초면에도 신뢰 구축">初対面でも信頼構築</span></li>
+            <li><span data-ja="多文化理解・調整力" data-ko="다문화 이해·조정력">多文化理解・調整力</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT SECTION ===== -->
+    <section id="contact" class="contact-section">
+      <div>
+        <div class="section-label">
+          <span data-ja="CONTACT" data-ko="연락처">CONTACT</span>
+        </div>
+        <h2>
+          <span data-ja="ご連絡ください。" data-ko="연락주세요.">ご連絡ください。</span>
+        </h2>
+      </div>
+      <p class="contact-links"><a href="mailto:hyewwrel33@gmail.com">✉️ hyewwrel33@gmail.com</a><a href="tel:+821055881425">📞 +82 10-5588-1425</a></p>
+    </section>
+  </main>
+
+  <script>
+(function(){var D=document,B=D.documentElement,K='portfolio-lang',M={ja:['キム・ミンヘ｜Portfolio','キム・ミンヘ｜日本語日本文学専攻・交換留学・IT/AI学習'],ko:['김민혜｜Portfolio','김민혜｜일어일문학 전공·교환학생·IT/AI 학습']};
+D.querySelectorAll('a[href*="여기에-배포-ID"]').forEach(function(a){a.removeAttribute('href');a.removeAttribute('target');a.classList.add('is-soon');a.dataset.ja='準備中';a.dataset.ko='준비 중'});
+function set(l){l=l==='ko'?'ko':'ja';B.lang=l;D.querySelectorAll('[data-ja]').forEach(function(e){e.textContent=e.dataset[l]});D.title=M[l][0];var m=D.querySelector('meta[name=description]');if(m)m.content=M[l][1];
+D.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.dataset.lang===l)});try{localStorage.setItem(K,l)}catch(e){}}
+D.querySelectorAll('.lang-btn').forEach(function(b){b.onclick=function(){set(b.dataset.lang)}});
+var q=new URLSearchParams(location.search).get('lang'),s;try{s=localStorage.getItem(K)}catch(e){}set(q||s||'ja');
+var chips=D.querySelectorAll('.chip'),cards=D.querySelectorAll('.project-card');
+chips.forEach(function(c){c.onclick=function(){chips.forEach(function(x){x.classList.toggle('active',x===c)});cards.forEach(function(k){k.hidden=c.dataset.f!=='all'&&k.dataset.tags.split(' ').indexOf(c.dataset.f)<0})}})})();
+</script>
+</body>
+</html>
