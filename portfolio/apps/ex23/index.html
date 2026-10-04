@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나나도사 - 오늘의 운세</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f6;
+      color: #333333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 상단 헤더 영역: 왼쪽에는 회사명, 오른쪽에는 나나도사 */
+    .top-header {
+      width: 100%;
+      max-width: 520px;
+      padding: 20px 24px 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .company-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4b5563;
+      letter-spacing: -0.3px;
+    }
+
+    .service-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #4f46e5;
+      background-color: #e0e7ff;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* 메인 카드 컨테이너 */
+    .main-wrapper {
+      width: 100%;
+      max-width: 520px;
+      padding: 0 16px 40px 16px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      width: 100%;
+      border-radius: 16px;
+      padding: 32px 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e5e7eb;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f2937;
+      margin-bottom: 24px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 0.9rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      background-color: #fafafa;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: #4f46e5;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .element-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .element-btn {
+      padding: 12px 4px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background-color: #f9fafb;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #4b5563;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .element-btn:hover {
+      border-color: #6366f1;
+      background-color: #eef2ff;
+      color: #4f46e5;
+    }
+
+    .element-btn.selected {
+      border-color: #4f46e5;
+      background-color: #4f46e5;
+      color: #ffffff;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background-color 0.2s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #4338ca;
+    }
+
+    /* 결과 출력 영역 */
+    .result-card {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      background-color: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .result-score {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #4f46e5;
+      margin-bottom: 12px;
+    }
+
+    .result-desc {
+      font-size: 0.92rem;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 헤더: 왼쪽(나나컴퍼니) / 오른쪽(나나도사) -->
+  <header class="top-header">
+    <div class="company-name">🏢 나나컴퍼니</div>
+    <div class="service-name">🔮 나나도사</div>
+  </header>
+
+  <main class="main-wrapper">
+    <div class="container">
+      <h1>오늘의 운세</h1>
+
+      <form id="fortuneForm">
+        <!-- 1. 이름 입력 -->
+        <div class="form-group">
+          <label for="userName">이름</label>
+          <input type="text" id="userName" placeholder="이름을 입력하세요" required />
+        </div>
+
+        <!-- 2. 생일 입력 -->
+        <div class="form-group">
+          <label for="birthDate">생년월일</label>
+          <input type="date" id="birthDate" required />
+        </div>
+
+        <!-- 3. 성별 선택 -->
+        <div class="form-group">
+          <label for="gender">성별</label>
+          <select id="gender" required>
+            <option value="" disabled selected>성별을 선택하세요</option>
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+
+        <!-- 4. 원소 선택 -->
+        <div class="form-group">
+          <label>원소 선택 (불, 물, 나무, 땅, 바람)</label>
+          <div class="element-grid">
+            <div class="element-btn" onclick="selectElement('불', this)">🔥 불</div>
+            <div class="element-btn" onclick="selectElement('물', this)">💧 물</div>
+            <div class="element-btn" onclick="selectElement('나무', this)">🌲 나무</div>
+            <div class="element-btn" onclick="selectElement('땅', this)">⛰️ 땅</div>
+            <div class="element-btn" onclick="selectElement('바람', this)">🌬️ 바람</div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">나나도사에게 운세 보기</button>
+      </form>
+
+      <!-- 결과 출력 영역 -->
+      <div id="resultCard" class="result-card">
+        <div id="resultTitle" class="result-title"></div>
+        <div id="resultScore" class="result-score"></div>
+        <p id="resultDesc" class="result-desc"></p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let selectedElement = '';
+
+    function selectElement(element, btn) {
+      selectedElement = element;
+      const buttons = document.querySelectorAll('.element-btn');
+      buttons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    const fortuneData = {
+      '불': [
+        { score: '⭐⭐⭐⭐⭐ (98점)', desc: '뜨거운 열정이 넘치는 날입니다! 미뤄두었던 과감한 도전을 시작해 보세요.' },
+        { score: '⭐⭐⭐⭐ (85점)', desc: '에너지가 고조되어 창의적인 아이디어가 샘솟습니다. 성급한 결정만 주의하세요.' },
+        { score: '⭐⭐⭐ (70점)', desc: '차분함을 유지하면 뜻밖의 이득을 얻게 됩니다. 솔직한 대화가 운을 높여줍니다.' }
+      ],
+      '물': [
+        { score: '⭐⭐⭐⭐⭐ (95점)', desc: '지혜와 유연함이 빛을 발하는 날입니다. 인간관계에서 큰 호감을 얻게 됩니다.' },
+        { score: '⭐⭐⭐⭐ (88점)', desc: '마음이 평온해지고 그동안 고민하던 문제가 시원하게 해결될 징조입니다.' },
+        { score: '⭐⭐⭐ (72점)', desc: '주변의 감정에 휘둘리지 않고 나만의 시간을 가질 때 좋은 운이 찾아옵니다.' }
+      ],
+      '나무': [
+        { score: '⭐⭐⭐⭐⭐ (99점)', desc: '성장과 결실의 기운이 강합니다! 노력했던 일에서 기대 이상의 성과를 거둡니다.' },
+        { score: '⭐⭐⭐⭐ (82점)', desc: '새로운 프로젝트나 공부를 시작하기에 최적의 날입니다. 꾸준함이 무기입니다.' },
+        { score: '⭐⭐⭐ (68점)', desc: '뿌리를 깊게 내리듯 기본에 충실해야 하는 날입니다. 조급해하지 마세요.' }
+      ],
+      '땅': [
+        { score: '⭐⭐⭐⭐⭐ (96점)', desc: '안정과 재물운이 강력한 날입니다. 차분하게 계획을 실행하기에 완벽합니다.' },
+        { score: '⭐⭐⭐⭐ (84점)', desc: '주변 사람들에게 든든한 신뢰를 얻습니다. 실속 있는 결과를 챙길 수 있습니다.' },
+        { score: '⭐⭐⭐ (75점)', desc: '고집을 부리기보다는 타인의 조언에 귀를 기울이면 더 좋은 길이 열립니다.' }
+      ],
+      '바람': [
+        { score: '⭐⭐⭐⭐⭐ (97점)', desc: '자유롭고 매력적인 기운이 감도는 날입니다! 새로운 정보나 좋은 소식이 찾아옵니다.' },
+        { score: '⭐⭐⭐⭐ (86점)', desc: '소통 능력이 최고조에 달합니다. 원하던 협상이나 대화가 쉽게 풀립니다.' },
+        { score: '⭐⭐⭐ (70점)', desc: '생각이 많아질 수 있으니 오늘 하루는 한 가지 중요한 일에 집중해 보세요.' }
+      ]
+    };
+
+    document.getElementById('fortuneForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('userName').value.trim();
+
+      if (!selectedElement) {
+        alert('원소(불, 물, 나무, 땅, 바람) 중 하나를 선택해 주세요!');
+        return;
+      }
+
+      const list = fortuneData[selectedElement];
+      const randomFortune = list[Math.floor(Math.random() * list.length)];
+
+      document.getElementById('resultTitle').textContent = `✨ ${name}님의 오늘의 운세 (${selectedElement}의 기운)`;
+      document.getElementById('resultScore').textContent = `나나도사의 운세 지수: ${randomFortune.score}`;
+      document.getElementById('resultDesc').textContent = randomFortune.desc;
+
+      const resultCard = document.getElementById('resultCard');
+      resultCard.style.display = 'block';
+      resultCard.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

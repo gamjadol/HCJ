@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모바일 청첩장</title>
+    <!-- 구글 폰트 (감성적인 명조체 & 캘리그라피 폰트) -->
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f5f2ed;
+            color: #4a4a4a;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px; /* 모바일 전용 폭 설정 */
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            min-height: 100vh;
+            padding-bottom: 60px;
+            overflow: hidden;
+        }
+
+        /* 1. 메인 커버 */
+        .hero {
+            text-align: center;
+            padding: 45px 20px 25px;
+            background-color: #faf8f5;
+        }
+        .hero .subtitle {
+            font-family: 'Gowun Batang', serif;
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: #9e8978;
+            margin-bottom: 12px;
+        }
+        .hero h1 {
+            font-family: 'Gowun Batang', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c2a29;
+            margin-bottom: 25px;
+        }
+        .main-img-wrapper {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .main-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* 2. D-Day 실시간 카운트다운 */
+        .countdown-section {
+            text-align: center;
+            padding: 35px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #f0ece6;
+        }
+        .countdown-title {
+            font-family: 'Gowun Batang', serif;
+            font-size: 0.95rem;
+            color: #8c6d63;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .timer-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .time-card {
+            background: #faf8f5;
+            border: 1px solid #eae5dd;
+            border-radius: 10px;
+            padding: 12px 10px;
+            min-width: 65px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .time-num {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #5d4037;
+        }
+        .time-label {
+            font-size: 0.65rem;
+            color: #a1938a;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* 3. 청첩장 문구 영역 */
+        .greeting-section {
+            padding: 50px 30px;
+            text-align: center;
+            background-color: #faf8f5;
+            margin: 20px 0;
+            position: relative;
+        }
+        .section-tag {
+            font-family: 'Gowun Batang', serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: #b39283;
+            margin-bottom: 25px;
+        }
+        .flower-icon {
+            font-size: 1.2rem;
+            color: #d4a373;
+            margin-bottom: 20px;
+        }
+        .greeting-text {
+            font-family: 'Gowun Batang', serif;
+            font-size: 1.02rem;
+            line-height: 2.2;
+            color: #4a4340;
+            word-break: keep-all;
+            white-space: pre-line;
+            margin-bottom: 35px;
+        }
+        
+        /* 혼주 및 신랑신부 서식 */
+        .family-info {
+            font-family: 'Gowun Dodum', sans-serif;
+            font-size: 0.95rem;
+            line-height: 2.2;
+            color: #555555;
+            border-top: 1px dashed #e2dad3;
+            padding-top: 30px;
+        }
+        .family-info span {
+            font-weight: bold;
+            color: #2c2a29;
+        }
+        .family-relation {
+            font-size: 0.82rem;
+            color: #8c8580;
+            margin: 0 6px;
+        }
+
+        /* 4. 예식 일시 및 장소 */
+        .info-section {
+            text-align: center;
+            padding: 25px 20px;
+            color: #666;
+            font-size: 0.92rem;
+            line-height: 1.8;
+            background-color: #ffffff;
+        }
+        .info-date {
+            font-family: 'Gowun Batang', serif;
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        /* 5. 갤러리 섹션 */
+        .gallery-section {
+            padding: 30px 20px;
+        }
+        .gallery-title {
+            text-align: center;
+            font-family: 'Gowun Batang', serif;
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            color: #8c6d63;
+            letter-spacing: 3px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 1. 메인 커버 -->
+        <section class="hero">
+            <div class="subtitle">WEDDING INVITATION</div>
+            <h1>김철수 & 박영희</h1>
+            <div class="main-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="메인 웨딩 화보" class="main-img">
+            </div>
+        </section>
+
+        <!-- 2. 실시간 카운트다운 -->
+        <section class="countdown-section">
+            <div class="countdown-title">소중한 날까지 남은 시간 💍</div>
+            <div class="timer-box">
+                <div class="time-card">
+                    <div id="days" class="time-num">00</div>
+                    <div class="time-label">DAYS</div>
+                </div>
+                <div class="time-card">
+                    <div id="hours" class="time-num">00</div>
+                    <div class="time-label">HOURS</div>
+                </div>
+                <div class="time-card">
+                    <div id="minutes" class="time-num">00</div>
+                    <div class="time-label">MINS</div>
+                </div>
+                <div class="time-card">
+                    <div id="seconds" class="time-num">00</div>
+                    <div class="time-label">SECS</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 인사말 및 혼주 소개 -->
+        <section class="greeting-section">
+            <div class="section-tag">INVITATION</div>
+            <div class="flower-icon">🌸</div>
+            
+            <div class="greeting-text" id="greeting-text">
+                서로 다른 삶을 살아온 두 사람이
+                사랑이라는 이름으로 하나 되어
+                새로운 인생의 첫걸음을 내딛습니다.
+
+                햇살처럼 따스하고
+                봄날의 바람처럼 서로에게
+                언제나 위로가 되는 사람이 되겠습니다.
+
+                저희 두 사람의 뜻깊은 시작의 자리에
+                함께하시어 축복해 주시면
+                더없는 기쁨으로 간직하겠습니다.
+            </div>
+
+            <!-- 부모님 성에 맞춘 통일 표기 -->
+            <div class="family-info">
+                김진우 · 이수진 <span class="family-relation">의 아들</span> <span>철수</span><br>
+                박성철 · 최영희 <span class="family-relation">의   딸</span> <span>영희</span>
+            </div>
+        </section>
+
+        <!-- 4. 예식 일시 및 장소 -->
+        <section class="info-section">
+            <div class="info-date">2026년 12월 30일 수요일 오후 12시</div>
+            <div>그랜드 웨딩홀 3층 아모르홀</div>
+            <div style="font-size:0.82rem; color:#999; margin-top:5px;">(서울특별시 강남구 테헤란로 123)</div>
+        </section>
+
+        <!-- 5. 갤러리 섹션 -->
+        <section class="gallery-section">
+            <div class="gallery-title">GALLERY</div>
+            <div class="gallery-grid">
+                <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="웨딩 화보 1">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="웨딩 화보 2">
+                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=80" alt="웨딩 화보 3">
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=600&q=80" alt="웨딩 화보 4">
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 1. 문구.txt 파일이 있을 경우 로드
+        fetch('문구.txt')
+            .then(response => {
+                if (!response.ok) throw new Error('파일 없음');
+                return response.text();
+            })
+            .then(text => {
+                document.getElementById('greeting-text').innerText = text;
+            })
+            .catch(() => {
+                // 문구.txt 파일이 없으면 기본 문구 유지
+            });
+
+        // 2. 실시간 카운트다운 (2026년 12월 30일 12:00:00 PM)
+        const weddingDate = new Date(2026, 11, 30, 12, 0, 0);
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate.getTime() - now.getTime();
+
+            if (diff <= 0) {
+                document.querySelector('.countdown-section').innerHTML = '<div class="countdown-title">🎉 오늘이 바로 결혼식 날입니다! 🎉</div>';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

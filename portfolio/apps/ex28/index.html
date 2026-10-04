@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부재 중 알리미</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      word-break: keep-all;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #0f172a;
+    }
+
+    /* 은은하고 세련된 세미 다크 그러데이션 배경 */
+    .bg-gradient {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #0f172a);
+      background-size: 300% 300%;
+      animation: smoothGradient 16s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    @keyframes smoothGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* 입력 폼 카드 (깔끔한 글래스모피즘) */
+    .form-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 400px;
+      color: #f8fafc;
+    }
+
+    .form-card h2 {
+      margin-bottom: 1.8rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: -0.5px;
+      color: #f1f5f9;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-group input, 
+    .input-group textarea {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: #f8fafc;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-group input:focus, 
+    .input-group textarea:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .input-group input[type="time"] {
+      color-scheme: dark;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 12px;
+      background: #6366f1;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    /* 화면 출력 레이아웃 */
+    .display-screen {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #f8fafc;
+      padding: 2rem;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 제일 큰 글자의 일정 타이틀 */
+    .display-title {
+      font-size: clamp(3.2rem, 9vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 2rem;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+
+    /* 카운트다운 및 복귀 시간 박스 */
+    .display-time-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.8rem 3.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .display-return-time {
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-weight: 500;
+      color: #94a3b8;
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.3px;
+    }
+
+    .display-countdown {
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: #38bdf8;
+      letter-spacing: -1px;
+    }
+
+    /* 기타 안내 문구 */
+    .display-note {
+      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+      font-weight: 400;
+      color: #cbd5e1;
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    /* 수정 버튼 */
+    .btn-edit {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.5rem 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .btn-edit:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-gradient">
+    <!-- 1. 입력 폼 -->
+    <div class="form-card" id="formCard">
+      <h2>부재 중 알리미</h2>
+      <form id="absenceForm">
+        <div class="input-group">
+          <label for="eventTitle">일정 내용</label>
+          <input type="text" id="eventTitle" placeholder="예: 팀 회의 / 외부 미팅" required>
+        </div>
+
+        <div class="input-group">
+          <label for="returnTime">돌아오는 시간</label>
+          <input type="time" id="returnTime" required>
+        </div>
+
+        <div class="input-group">
+          <label for="noticeText">기타 안내 문구</label>
+          <textarea id="noticeText" rows="3" placeholder="예: 급한 건은 메신저로 연락해 주세요."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">화면 표시하기</button>
+      </form>
+    </div>
+
+    <!-- 2. 부재 중 화면 -->
+    <div class="display-screen" id="displayScreen">
+      <button class="btn-edit" id="btnEdit">수정하기</button>
+
+      <!-- 1) 가장 큰 글자의 일정 -->
+      <h1 class="display-title" id="outTitle">팀 회의</h1>
+
+      <!-- 2) 시간 및 카운트다운 -->
+      <div class="display-time-card">
+        <div class="display-return-time" id="outReturnTime">복귀 예정 · 14:00</div>
+        <div class="display-countdown" id="outCountdown">00분 00초 남음</div>
+      </div>
+
+      <!-- 3) 기타 안내 문구 -->
+      <p class="display-note" id="outNotice">급한 건은 메신저로 연락해 주세요.</p>
+    </div>
+  </div>
+
+  <script>
+    const formCard = document.getElementById('formCard');
+    const displayScreen = document.getElementById('displayScreen');
+    const absenceForm = document.getElementById('absenceForm');
+    const btnEdit = document.getElementById('btnEdit');
+
+    const outTitle = document.getElementById('outTitle');
+    const outReturnTime = document.getElementById('outReturnTime');
+    const outCountdown = document.getElementById('outCountdown');
+    const outNotice = document.getElementById('outNotice');
+
+    let countdownInterval = null;
+
+    // 초기 시간 설정 (현재 시간 + 30분)
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 30);
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    document.getElementById('returnTime').value = `${hours}:${minutes}`;
+
+    absenceForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const title = document.getElementById('eventTitle').value;
+      const returnTimeVal = document.getElementById('returnTime').value;
+      const notice = document.getElementById('noticeText').value;
+
+      outTitle.textContent = title;
+      outReturnTime.textContent = `복귀 예정 · ${returnTimeVal}`;
+      outNotice.textContent = notice;
+
+      startCountdown(returnTimeVal);
+
+      formCard.style.display = 'none';
+      displayScreen.style.display = 'flex';
+    });
+
+    btnEdit.addEventListener('click', () => {
+      clearInterval(countdownInterval);
+      displayScreen.style.display = 'none';
+      formCard.style.display = 'block';
+    });
+
+    function startCountdown(targetTimeStr) {
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      function updateTimer() {
+        const now = new Date();
+        const [hours, minutes] = targetTimeStr.split(':').map(Number);
+        
+        let targetDate = new Date();
+        targetDate.setHours(hours, minutes, 0, 0);
+
+        if (targetDate < now) {
+          targetDate.setDate(targetDate.getDate() + 1);
+        }
+
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          outCountdown.textContent = "곧 복귀합니다";
+          clearInterval(countdownInterval);
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const hrs = Math.floor(totalSeconds / 3600);
+        const mins = Math.floor((totalSeconds % 3600) / 60);
+        const secs = totalSeconds % 60;
+
+        let timeString = "";
+        if (hrs > 0) {
+          timeString += `${hrs}시간 `;
+        }
+        timeString += `${String(mins).padStart(2, '0')}분 ${String(secs).padStart(2, '0')}초 남음`;
+
+        outCountdown.textContent = timeString;
+      }
+
+      updateTimer();
+      countdownInterval = setInterval(updateTimer, 1000);
+    }
+  </script>
+</body>
+</html>
